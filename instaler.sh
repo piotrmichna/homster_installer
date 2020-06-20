@@ -38,5 +38,54 @@ fi
 EX=1
 #   petla wyswietlania menu instalatora
 while [ $EX -eq 1 ] ; do
-    CHOICE=$( whiptail --title "$MAIN_TITLE" --menu "$MAIN_MESSAGE" 25 100 15 "${menux[@]}" 3>&2 2>&1 1>&3 )
+    CHOICE=$( whiptail --title "$MAIN_TITLE" --menu "$MAIN_MESSAGE" 20 120 7 "${menux[@]}" 3>&2 2>&1 1>&3 )
+    case $CHOICE in
+        "1)")
+            whiptail \
+            --backtitle "Backtitle" \
+            --title " | Wykonaj wszystkio bez konfiguracji | " \
+            --msgbox "Jeszcze nie zdefiniowane..." \
+            8 78
+            ;;
+        "2)")
+            sudo raspi-config
+            EX=0
+            ;;
+        "3)")
+            whiptail \
+            --backtitle "Backtitle" \
+            --title " | Konfiguracja | " \
+            --msgbox "Jeszcze nie zdefiniowane..." \
+            8 78
+            ;;
+        "4)")
+            sudo apt-get update | TERM=ansi whiptail --title "HOMSTER - Instalator" --infobox "Aktualizacja systemu..." 8 78
+            sudo apt-get upgrade | TERM=ansi whiptail --title "HOMSTER - Instalator" --infobox "Uaktualnianie systemu..." 8 78
+            sudo apt-get autoremove | TERM=ansi whiptail --title "HOMSTER - Instalator" --infobox "Usuwanie zbędnych pakietów..." 8 78
+            ;;
+        "5)")
+            whiptail \
+            --backtitle "Backtitle" \
+            --title " | Instalacja programów narzędziowych | " \
+            --msgbox "Jeszcze nie zdefiniowane..." \
+            8 78
+            ;;
+        "6)")
+            whiptail \
+            --backtitle "Backtitle" \
+            --title " | Instalacja servera www | " \
+            --msgbox "Jeszcze nie zdefiniowane..." \
+            8 78
+            ;;
+        "7)")
+            whiptail \
+            --backtitle "Backtitle" \
+            --title " | Instalacja usługi systemowej | " \
+            --msgbox "Jeszcze nie zdefiniowane..." \
+            8 78
+            ;;
+        "8)")
+            EX=0
+        ;;
+    esac
 done
