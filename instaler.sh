@@ -27,7 +27,7 @@ function main(){
         menux[6]="4)"
         menux[7]="Uaktualnienia i Aktualizacja sytemu."
         menux[8]="5)"
-        menux[9]="Instalacja programów narzędziowych (VIM, Git, Tmux, bc...)"
+        menux[9]="Instalator programów narzędziowych (VIM, Git, Tmux, bc...)"
         menux[10]="6)"
         menux[11]="Instalacja servera www (Nginx, PHP, MySQL)."
         menux[12]="7)"
