@@ -35,3 +35,8 @@ else
     menux[15]="Zamknij instalator."
 fi
 
+EX=1
+#   petla wyswietlania menu instalatora
+while [ $EX -eq 1 ] ; do
+    CHOICE=$( whiptail --title "$MAIN_TITLE" --menu "$MAIN_MESSAGE" 25 100 15 "${menux[@]}" 3>&2 2>&1 1>&3 )
+done
