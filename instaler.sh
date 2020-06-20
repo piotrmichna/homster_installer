@@ -15,7 +15,7 @@ if [ $EX_CNF -eq 0 ] ; then
     MAIN_MESSAGE=$( "Piotr Michna\npm@piotrmichna.pl\n\nNależy wykonać wstępną konfiguracje [sudo raspi-config] dla:\nUstawienia językowe\nStrefa czasowa" )
     menux[2]="2)"
     menux[3]="Raspberry konfigurator."
-    menux[14]="6)"
+    menux[14]="8)"
     menux[15]="Zamknij instalator."
 else
     MAIN_MESSAGE=$( "Piotr Michna\npm@piotrmichna.pl\n\nWybierz zadanie do wykonania:" )
@@ -29,9 +29,9 @@ else
     menux[9]="Instalacja programów narzędziowych"
     menux[10]="6)"
     menux[11]="Instalacja servera www (Nginx, PHP, MySQL)."
-    menux[12]="6)"
+    menux[12]="7)"
     menux[13]="Instalacja usługi systemowej."
-    menux[14]="6)"
+    menux[14]="8)"
     menux[15]="Zamknij instalator."
 fi
 
