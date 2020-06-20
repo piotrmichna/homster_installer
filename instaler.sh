@@ -4,6 +4,8 @@
 #   autor: Piotr Michna
 #   email: pm@piotrmichna.pl
 
+source lib_narzedzia.sh
+
 #   sprawdzenie czy wykonano konfiguracje raspberry pi
 EX_CNF=0
 EX_CNF=$( localectl status | grep -c LANG=pl_PL.UTF-8 )
@@ -65,11 +67,7 @@ function main(){
                 sudo apt-get autoremove | TERM=ansi whiptail --title "HOMSTER - Instalator" --infobox "Usuwanie zbędnych pakietów..." 8 78
                 ;;
             "5)")
-                whiptail \
-                --backtitle "Backtitle" \
-                --title " | Instalacja programów narzędziowych | " \
-                --msgbox "Jeszcze nie zdefiniowane..." \
-                8 78
+                narzedzia_install
                 ;;
             "6)")
                 whiptail \
