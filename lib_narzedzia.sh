@@ -27,4 +27,3 @@ function narzedzia_install(){
     done
     clear
 }
-narzedzia_install
