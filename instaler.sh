@@ -6,15 +6,19 @@
 
 #   sprawdzenie czy wykonano konfiguracje raspberry pi
 EX_CNF=0
-EX=$( localectl status | grep -c LANG=pl_PL.UTF-8 )
+EX_CNF=$( localectl status | grep -c LANG=pl_PL.UTF-8 )
+
+MAIN_TITLE=$( " | HOMSTER - Instalator | " )
 
 #   definicja pozycji menu
-if [ $EX -eq 0 ] ; then
+if [ $EX_CNF -eq 0 ] ; then
+    MAIN_MESSAGE=$( "Piotr Michna\npm@piotrmichna.pl\n\nNależy wykonać wstępną konfiguracje [sudo raspi-config] dla:\nUstawienia językowe\nStrefa czasowa" )
     menux[2]="2)"
     menux[3]="Raspberry konfigurator."
     menux[14]="6)"
     menux[15]="Zamknij instalator."
 else
+    MAIN_MESSAGE=$( "Piotr Michna\npm@piotrmichna.pl\n\nWybierz zadanie do wykonania:" )
     menux[0]="1)"
     menux[1]="Wykonaj wszystkio bez konfiguracji."
     menux[4]="3)"
@@ -30,3 +34,4 @@ else
     menux[14]="6)"
     menux[15]="Zamknij instalator."
 fi
+
