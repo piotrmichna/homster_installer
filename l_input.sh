@@ -1,5 +1,24 @@
 # /bin/bash
 #   l_input.sh
+#
+#   instalator i konfigurator systemu HOMSTER
+#   autor: Piotr Michna
+#   email: pm@piotrmichna.pl
+#--
+#   wywolanei funkcji:
+#       input_var -t "Hasło" -w 60 -m "Podaj hasło." -p -v "tajne hasło"
+#       -p  typ hastla
+#       -t  "Tytuł okna"
+#       -m  "tekst z informacja"
+#       -v  "domyslna wartość zwracanej zmiennej"
+#       -w  szerokość okna  [liczba]
+#--
+#   wynik wykonania:
+#       if [ $EX_STAT = 0 ]; then
+#           echo "Wprowadzono: " $INP_VAR " i wcisnieto OK"
+#       else
+#           echo "Anulowano wprowadzanie"
+#       fi
 
 INP_VAR=0
 EX_STAT=0
