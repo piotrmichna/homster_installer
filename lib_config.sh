@@ -39,6 +39,32 @@ sudo cp ${HOME_DIR}/.vimrc /root
 }
 
 
+function git_config(){
+    local editor="nano"
+    dpkg -s vim &> /dev/null
+    if [ $? -eq 0 ] ; then
+        editor="vim"
+    fi
+    touch ${HOME_DIR}/.gitconfig &> /dev/null
+    cat > ${HOME_DIR}/.gitconfig2 <<EOF
+[user]
+	email = pm@piotrmichna.pl
+	name = Piotr Michna
+[core]
+	editor = $editor
+[alias]
+	ll = log -n 30 --all --oneline --graph
+	lll = log --all --oneline --graph
+	ap = add -p
+	cc = commit
+	cm = checkout master
+	st = status
+	cb = checkout -
+EOF
+
+}
+
+
 function parametry_conf(){
     local EX=1
 
