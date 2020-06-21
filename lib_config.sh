@@ -98,24 +98,28 @@ function narzedzia_cnf(){
         local menux[$n]="on"
         n=$(( n+1 ))
     fi
-    dpkg -s phpmyadmin &> /dev/null
-    if [ $? -eq 0 ] ; then
-        local menux[$n]="phpmyadmin"
-        n=$(( n+1 ))
-        local menux[$n]="Konfiguracja phpmyadmin."
-        n=$(( n+1 ))
-        local menux[$n]="off"
-        n=$(( n+1 ))
-    fi
 
     checklist_var -m "Wybierz zadanie do wykonania::" -t " | Instalator oprogramowania narzędziowego | "
     local n=0
     for i in ${INP_VAR[@]} ; do
         local RE[$n]=$( echo "$i" | tr -d \" )
         #install_prog ${RE[$n]}
-        echo "${RE[$n]}"
+        if [ ${RE[$n]} = "PARAMETRY" ] ; then
+            parametry_conf
+            n=$(( n+1 ))
+            continue
+        fi
+        if [ ${RE[$n]} = "vim" ] ; then
+            vim_config
+            n=$(( n+1 ))
+            continue
+        fi
+        if [ ${RE[$n]} = "git" ] ; then
+            git_config
+            n=$(( n+1 ))
+            continue
+        fi
         n=$(( n+1 ))
     done
     #clear
 }
-narzedzia_cnf
