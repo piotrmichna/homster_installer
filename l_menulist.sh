@@ -49,7 +49,7 @@ function radiolist_var(){
     for (( i=1 ; i<=${#@} ; i++ )) ; do
         tt=$(echo "\$$i" )
         tvar=$(eval echo "$tt")
-
+        sct=""
         if [ $tvar = "-t" ] ; then
             i=$(( i+1 ))
             tt=$(echo "\$$i" )
@@ -84,11 +84,14 @@ function radiolist_var(){
             i=$(( i+1 ))
             tt=$(echo "\$$i" )
             tvar=$(eval echo "$tt")
+            if [ $tvar -lt $nline ] ; then
+                sct=" --scrolltext"
+            fi
             nline=$tvar
             continue
         fi
     done
-    INP_VAR=$(whiptail --menu "$message" --title "$tyt" $height $width $nline "${menux[@]}" 3>&1 1>&2 2>&3)
+    INP_VAR=$(whiptail --menu "$message" --title "$tyt"$sct $height $width $nline "${menux[@]}" 3>&1 1>&2 2>&3)
     EX_STAT=$?
 }
 menux[0]="1)"
