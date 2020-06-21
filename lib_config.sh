@@ -20,6 +20,25 @@ LOG_FILENAME="log"
 LOG_FILE="${LOG_FILENAME}_${CUR_DATE}.log"
 SRCDO="${HOME_DIR}/${SERVICE_DIR}"
 
+
+function vim_config(){
+    touch ${HOME_DIR}/.vimrc
+    cat > ${HOME_DIR}/.vimrc <<EOF
+syntax on
+set mouse=a
+set background=dark
+set smartindent
+set shiftwidth=2
+set tabstop=2
+set number
+set hlsearch
+set incsearch
+EOF
+
+sudo cp ${HOME_DIR}/.vimrc /root
+}
+
+
 function parametry_conf(){
     local EX=1
 
