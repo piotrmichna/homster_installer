@@ -10,7 +10,7 @@
 #       menux[1]="Tytuł usługi."
 #--
 #   wywolanei funkcji:
-#       radiolist_var -m "Wybierz paramet do zmiany:" -t " | Konfigurator usługi | "
+#       menulist_var -m "Wybierz paramet do zmiany:" -t " | Konfigurator usługi | "
 #       -h   wysokość okna  [liczba]
 #       -w   szerokość okna  [liczba]
 #       -ln  liczba wierszy [liczba]
@@ -33,12 +33,10 @@
 #           ;;
 #       esac
 
-
-
 INP_VAR=0
 EX_STAT=0
 
-function radiolist_var(){
+function menulist_var(){
     local tyt="Tytuł"
     local message="Piotr Michna\npm@piotrmichna.pl\n"
     local width=78
@@ -94,26 +92,26 @@ function radiolist_var(){
     INP_VAR=$(whiptail --menu "$message" --title "$tyt"$sct $height $width $nline "${menux[@]}" 3>&1 1>&2 2>&3)
     EX_STAT=$?
 }
-menux[0]="1)"
-menux[1]="Tytuł usługi."
-menux[2]="2)"
-menux[3]="Nazwa usługi."
-menux[4]="3)"
-menux[5]="Nazwa użytkownika."
-menux[6]="4)"
-menux[7]="Koniec."
-radiolist_var -m "Wybierz paramet do zmiany:" -t " | Konfigurator usługi | "
-       case $INP_VAR in
-       "1)")
-           echo "Tytuł usługi"
-           ;;
-       "2)")
-           echo "Nazwa usługi"
-           ;;
-       "3)")
-           echo "Nazwa użytkownika"
-           ;;
-       "4)")
-           EX=0
-           ;;
-       esac
+#menux[0]="1)"
+#menux[1]="Tytuł usługi."
+#menux[2]="2)"
+#menux[3]="Nazwa usługi."
+#menux[4]="3)"
+#menux[5]="Nazwa użytkownika."
+#menux[6]="4)"
+#menux[7]="Koniec."
+#menulist_var -ln 3 -m "Wybierz paramet do zmiany:" -t " | Konfigurator usługi | "
+#       case $INP_VAR in
+#       "1)")
+#           echo "Tytuł usługi"
+#           ;;
+#       "2)")
+#           echo "Nazwa usługi"
+#           ;;
+#       "3)")
+#           echo "Nazwa użytkownika"
+#           ;;
+#       "4)")
+#           EX=0
+#           ;;
+#       esac
