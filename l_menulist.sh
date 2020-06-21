@@ -8,7 +8,6 @@
 #   definicja tablicy wierszy radiolisty
 #       menux[0]="1)"
 #       menux[1]="Tytuł usługi."
-#       menux[2]="on"
 #--
 #   wywolanei funkcji:
 #       radiolist_var -m "Wybierz paramet do zmiany:" -t " | Konfigurator usługi | "
@@ -44,7 +43,7 @@ function radiolist_var(){
     local message="Piotr Michna\npm@piotrmichna.pl\n"
     local width=78
     local nline=${#menux[@]}
-    nline=$(( nline/3 ))
+    nline=$(( nline/2 ))
     local height=$(( nline+8 ))
 
     for (( i=1 ; i<=${#@} ; i++ )) ; do
@@ -63,7 +62,7 @@ function radiolist_var(){
             tt=$(echo "\$$i" )
             tvar=$(eval echo "$tt")
             message=$(echo "$message\n$tvar")
-            height=$(( height+2 ))
+            height=$(( height+3 ))
             continue
         fi
         if [ $tvar = "-h" ] ; then
@@ -89,19 +88,29 @@ function radiolist_var(){
             continue
         fi
     done
-    INP_VAR=$(whiptail --radiolist "$message" --title "$tyt" $height $width $nline "${menux[@]}" 3>&1 1>&2 2>&3)
+    INP_VAR=$(whiptail --menu "$message" --title "$tyt" $height $width $nline "${menux[@]}" 3>&1 1>&2 2>&3)
     EX_STAT=$?
 }
-#menux[0]="1)"
-#menux[1]="Tytuł usługi."
-#menux[2]="on"
-#menux[3]="2)"
-#menux[4]="Nazwa usługi."
-#menux[5]="off"
-#menux[6]="3)"
-#menux[7]="Nazwa użytkownika."
-#menux[8]="off"
-#menux[9]="4)"
-#menux[10]="Koniec."
-#menux[11]="off"
-#radiolist_var -m "Wybierz paramet do zmiany:" -t " | Konfigurator usługi | "
+menux[0]="1)"
+menux[1]="Tytuł usługi."
+menux[2]="2)"
+menux[3]="Nazwa usługi."
+menux[4]="3)"
+menux[5]="Nazwa użytkownika."
+menux[6]="4)"
+menux[7]="Koniec."
+radiolist_var -m "Wybierz paramet do zmiany:" -t " | Konfigurator usługi | "
+       case $INP_VAR in
+       "1)")
+           echo "Tytuł usługi"
+           ;;
+       "2)")
+           echo "Nazwa usługi"
+           ;;
+       "3)")
+           echo "Nazwa użytkownika"
+           ;;
+       "4)")
+           EX=0
+           ;;
+       esac
