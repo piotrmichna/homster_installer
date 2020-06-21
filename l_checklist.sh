@@ -19,33 +19,31 @@
 #       -m  "tekst z informacja"
 #--
 #   wynik wykonania
-#       case $INP_VAR in
-#       "1)")
-#           echo "Tytuł usługi"
-#           ;;
-#       "2)")
-#           echo "Nazwa usługi"
-#           ;;
-#       "3)")
-#           echo "Nazwa użytkownika"
-#           ;;
-#       "4)")
-#           EX=0
-#           ;;
-#       esac
-
-
+#       localn=0
+#       for i in ${INP_VAR[@]} ; do
+#           RE[$n]=$( echo "$i" | tr -d \" )
+#           se=$(echo "${RE[$n]}")
+#           for (( x=0 ; x<${#menux[@]} ; x++ )) ; do
+#               if [ "$se" = "${menux[$x]}" ] ; then
+#                   y=$(( x+1 ))
+#                   echo "$se ${menux[$y]}"
+#                   break
+#               fi
+#           done
+#           n=$(( n+1 ))
+#       done
 
 INP_VAR=0
 EX_STAT=0
 
-function radiolist_var(){
+function checklist_var(){
     local tyt="Tytuł"
     local message="Piotr Michna\npm@piotrmichna.pl\n"
     local width=78
     local nline=${#menux[@]}
     nline=$(( nline/3 ))
     local height=$(( nline+8 ))
+    sct=""
 
     for (( i=1 ; i<=${#@} ; i++ )) ; do
         tt=$(echo "\$$i" )
@@ -85,23 +83,40 @@ function radiolist_var(){
             i=$(( i+1 ))
             tt=$(echo "\$$i" )
             tvar=$(eval echo "$tt")
+            if [ $tvar -lt $nline ] ; then
+                sct=" --scrolltext"
+            fi
             nline=$tvar
             continue
         fi
     done
-    INP_VAR=$(whiptail --radiolist "$message" --title "$tyt" $height $width $nline "${menux[@]}" 3>&1 1>&2 2>&3)
+    INP_VAR=$(whiptail --checklist "$message" --title "$tyt"$sct $height $width $nline "${menux[@]}" 3>&1 1>&2 2>&3)
     EX_STAT=$?
 }
-#menux[0]="1)"
+#menux[0]="tyt"
 #menux[1]="Tytuł usługi."
 #menux[2]="on"
-#menux[3]="2)"
+#menux[3]="2"
 #menux[4]="Nazwa usługi."
 #menux[5]="off"
 #menux[6]="3)"
-#menux[7]="Nazwa użytkownika."
+#menux[7]="[Nazwa użytkownika]"
 #menux[8]="off"
 #menux[9]="4)"
 #menux[10]="Koniec."
 #menux[11]="off"
-#radiolist_var -m "Wybierz paramet do zmiany:" -t " | Konfigurator usługi | "
+
+#checklist_var -m "Wybierz paramet do zmiany:" -t " | Konfigurator usługi | "
+#n=0
+#for i in ${INP_VAR[@]} ; do
+#    RE[$n]=$( echo "$i" | tr -d \" )
+#    se=$(echo "${RE[$n]}")
+#    for (( x=0 ; x<${#menux[@]} ; x++ )) ; do
+#        if [ "$se" = "${menux[$x]}" ] ; then
+#            y=$(( x+1 ))
+#            echo "$se ${menux[$y]}"
+#            break
+#        fi
+#    done
+#    n=$(( n+1 ))
+#done
