@@ -119,6 +119,7 @@ function parametry_conf(){
             ;;
         esac
     done
+    clear
 }
 function narzedzia_cnf(){
     local menux[0]="PARAMETRY"
@@ -166,5 +167,5 @@ function narzedzia_cnf(){
         fi
         n=$(( n+1 ))
     done
-    #clear
+    clear
 }
