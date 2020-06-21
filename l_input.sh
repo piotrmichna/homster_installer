@@ -29,7 +29,6 @@ function input_var(){
     local message="Komnetarz do zawartosci"
     local valu=""
     local width=78
-    echo "ilosc parametrow ${#@}"
     for (( i=1 ; i<=${#@} ; i++ )) ; do
         tt=$(echo "\$$i" )
         tvar=$(eval echo "$tt")
@@ -67,22 +66,10 @@ function input_var(){
             continue
         fi
     done
-    echo "parametry ->"
-    echo "typ=$typ"
-    echo "tyt=$tyt"
-    echo "message=$message"
-    echo "valu=$valu"
-    echo "width=$width"
-    #if [ $typ = "p" ] ; then
-    #    INP_VAR=$(whiptail --passwordbox "$message" 8 $width "$valu" --title "$tyt" 3>&1 1>&2 2>&3)
-    #else
-    #    INP_VAR=$(whiptail --inputbox "$message" 8 $width "$valu" --title "$tyt" 3>&1 1>&2 2>&3)
-    #fi
+    if [ $typ = "p" ] ; then
+        INP_VAR=$(whiptail --passwordbox "$message" 8 $width "$valu" --title "$tyt" 3>&1 1>&2 2>&3)
+    else
+        INP_VAR=$(whiptail --inputbox "$message" 8 $width "$valu" --title "$tyt" 3>&1 1>&2 2>&3)
+    fi
     EX_STAT=$?
 }
-
-   if [ $EX_STAT = 0 ]; then
-       echo "Wprowadzono: " $INP_VAR " i wcisnieto OK"
-   else
-       echo "Anulowano wprowadzanie"
-   fi
