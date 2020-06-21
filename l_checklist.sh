@@ -11,7 +11,7 @@
 #       menux[2]="on"
 #--
 #   wywolanei funkcji:
-#       radiolist_var -m "Wybierz paramet do zmiany:" -t " | Konfigurator usługi | "
+#       checklist_var -m "Wybierz paramet do zmiany:" -t " | Konfigurator usługi | "
 #       -h   wysokość okna  [liczba]
 #       -w   szerokość okna  [liczba]
 #       -ln  liczba wierszy [liczba]
