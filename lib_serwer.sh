@@ -8,6 +8,13 @@
 source lib_install.sh
 source l_checklist.sh
 
+function php_install(){
+    sudo apt-get install php php-cli php-fpm -y &> /dev/null
+}
+
+function maridb_install(){
+    sudo apt-get install mariadb-server-10.0 mariadb-client-10.0 php-mysql -y &> /dev/null
+}
 function serwer_install(){
     local menux[0]="nginx"
     local menux[1]="Serwer www."
