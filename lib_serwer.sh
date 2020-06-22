@@ -15,6 +15,7 @@ function php_install(){
 function maridb_install(){
     sudo apt-get install mariadb-server-10.0 mariadb-client-10.0 php-mysql -y &> /dev/null
 }
+
 function serwer_install(){
     local menux[0]="Nginx"
     local menux[1]=" Serwer www. "
@@ -31,6 +32,9 @@ function serwer_install(){
     local menux[12]="konfiguracja"
     local menux[13]=" Konfiguracja serwera www. "
     local menux[14]="on"
+    local menux[12]="parametry"
+    local menux[13]=" Parametry konfiguracji serwera. "
+    local menux[14]="off"
     checklist_var -m "Wybierz oprogramowanie do zainstalowania:" -t " | Instalator oprogramowania serwera www | "
     local n=0
     for i in ${INP_VAR[@]} ; do
@@ -51,6 +55,11 @@ function serwer_install(){
             continue
         fi
         if [ ${RE[$n]} = "konfiguracja" ] ; then
+            serwer_conf
+            n=$(( n+1 ))
+            continue
+        fi
+        if [ ${RE[$n]} = "parametry" ] ; then
             serwer_conf
             n=$(( n+1 ))
             continue
