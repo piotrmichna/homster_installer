@@ -39,7 +39,7 @@ function main(){
         menux[15]=" Koniec."
     fi
 
-    EX=1
+    local EX=1
     #   petla wyswietlania menu instalatora
     while [ $EX -eq 1 ] ; do
         CHOICE=$( whiptail --title "$MAIN_TITLE" --menu "$MAIN_MESSAGE" 20 120 7 "${menux[@]}" 3>&2 2>&1 1>&3 )
