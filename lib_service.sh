@@ -24,7 +24,49 @@ function service_install(){
         sudo chmod -R 777 /var/www/html/$HTML_DOC
         cd $HTML_DOC
     fi
-    git clone https://Chivito78:hi24biscus@bitbucket.org/Chivito78/html.git .
+    git clone https://Chivito78:hi24biscus@bitbucket.org/Chivito78/${GIT_HTML} .
+
+    dpkg -s phpmyadmin &> /dev/null
+    if [ $? -eq 0 ] ; then
+        sudo phpenmod mbstring
+        sudo phpenmod gettext
+        sudo ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin
+    fi
+    sudo systemctl restart nginx.service
+
+    mkdir $SRCDO
+    chmod 766 $SRCDO
+    cd $SRCDO
+    git clone https://Chivito78:hi24biscus@bitbucket.org/Chivito78/${GIT_BASH}  .
+    chmod 766 ${SRCDO}/.git
+    chmod 766 ${SRCDO}/*.*
+    local snum=$( echo `ls | grep -c .service` )
+    if [ $snum -gt 0 ] ; then
+        sudo mkdir back
+        sudo mv *.service back/
+    fi
+    sudo dd of=${SRCDO}/${SERVICE_NAME} <<EOF
+    [Unit]
+    Description=${SERVICE_DESCRIPTION}
+    After=network-online.target
+
+    [Service]
+    Type=idle
+    User=$USR
+    ExecStart=/bin/bash ${SRCDO}/h_main.sh
+    WorkingDirectory=${SRCDO}/
+    StandardOutput=inherit
+    StandardError=inherit
+    Restart=always
+
+    [Install]
+    WantedBy=multi-user.target
+EOF
+
+    sudo chmod 766 ${SRCDO}/${SERVICE_NAME}
+    sudo cp ${SRCDO}/${SERVICE_NAME} /lib/systemd/system/
+    sudo systemctl daemon-reload
+    sudo systemctl enable ${SERVICE_NAME}
 }
 
 function service_edit(){
