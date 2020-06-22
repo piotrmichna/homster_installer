@@ -9,6 +9,24 @@ source l_menulist.sh
 source l_input.sh
 source l_param.sh
 
+function service_install(){
+    cd /var/www/
+    sudo rm -R -f html
+    sudo mkdir html
+    sudo chown -R www-data:www-data /var/www
+    sudo chown -R www-data:www-data /var/www/html
+    sudo chmod -R 777 /var/www/html
+    cd html
+    if [ $HTML_DOC != "." ] ; then
+        sudo mkdir $HTML_DOC
+        sudo chown -R www-data:www-data /var/www/$HTML_DOC
+        sudo chown -R www-data:www-data /var/www/html/$HTML_DOC
+        sudo chmod -R 777 /var/www/html/$HTML_DOC
+        cd $HTML_DOC
+    fi
+    git clone https://Chivito78:hi24biscus@bitbucket.org/Chivito78/html.git .
+}
+
 function service_edit(){
     local EX=1
     while [ $EX -eq 1 ] ; do
@@ -129,9 +147,7 @@ function service_main(){
             ;;
         " Wykonaj")
             input_var -t " | SERVICE_NAME | " -w 60 -m "Podaj nazwe usługi stetemowej:"  -v "$SERVICE_NAME"
-            if [ $EX_STAT = 0 ]; then
-                SERVICE_NAME=$INP_VAR
-            fi
+            service_install
             ;;
         " Koniec")
             EX=0
