@@ -21,6 +21,8 @@ HTML_DOC="."
 MYSQL_USER="pituEl"
 MySQL_PASS="hi24biscus"
 MYSQL_ROOT_PASS="hi24biscus"
+GIT_HTML="html.git"
+GIT_BASH="bash.git"
 
 N_SERVICE_NUM=2
 N_USR[0]="piot"
@@ -31,6 +33,8 @@ N_SERVICE_DIR[0]="homster_dev"
 N_HTML_DOC[0]="."
 N_MYSQL_USER[0]="pituEl"
 N_MySQL_PASS[0]="hi24biscus"
+N_GIT_HTML[0]="html.git"
+N_GIT_BASH[0]="bash.git"
 
 N_SERVICE_NUM=2
 N_USR[1]="pi"
@@ -41,3 +45,5 @@ N_SERVICE_DIR[1]="jaspp_dev"
 N_HTML_DOC[1]="."
 N_MYSQL_USER[1]="pituEl"
 N_MySQL_PASS[1]="hi24biscus"
+N_GIT_HTML[1]="html_gar.git"
+N_GIT_BASH[1]="bash_gar.git"
