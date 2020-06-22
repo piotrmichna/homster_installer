@@ -9,6 +9,76 @@ source l_menulist.sh
 source l_input.sh
 source l_param.sh
 
+function service_edit(){
+    local EX=1
+    while [ $EX -eq 1 ] ; do
+        local menux[0]=" USR"
+        local menux[1]=" Nazwa użytkownika systemowego [$USR] "
+        local menux[2]=" SERVICE_DESCRIPTION"
+        local menux[3]=" Opis usługi [$SERVICE_DESCRIPTION] "
+        local menux[4]=" SERVICE_NAME"
+        local menux[5]=" Nazwa usługi [$SERVICE_NAME] "
+        local menux[6]=" SERVICE_DIR"
+        local menux[7]=" Katalog usługi [$SERVICE_DIR] "
+        local menux[8]=" HTML_DOC"
+        local menux[9]=" Katalog www dla usługi [$HTML_DOC] "
+        local menux[10]=" MYSQL_USER"
+        local menux[11]=" Użytkownik usługi [$MYSQL_USER] "
+        local menux[12]=" MySQL_PASS"
+        local menux[13]=" Hasło użytkownika usługi [$MySQL_PASS] "
+        local menux[14]=" Koniec"
+        local menux[15]=" Powrót do konfiguratora usługi. "
+        menulist_var -m "Wybierz wybierz paametr do edycji" -t " | Lista parametrów usługi systemowej | " -w 100
+        case $INP_VAR in
+        " USR")
+            input_var -t " | USR | " -w 60 -m "Podaj nazwe użytkownika:"  -v "$USR"
+            if [ $EX_STAT = 0 ]; then
+                USR=$INP_VAR
+            fi
+            ;;
+        " SERVICE_DESCRIPTION")
+            input_var -t " | SERVICE_DESCRIPTION | " -w 60 -m "Podaj opis usługi stetemowej:"  -v "$SERVICE_DESCRIPTION"
+            if [ $EX_STAT = 0 ]; then
+                SERVICE_DESCRIPTION=$INP_VAR
+            fi
+            ;;
+        " SERVICE_NAME")
+            input_var -t " | SERVICE_NAME | " -w 60 -m "Podaj nazwe usługi stetemowej:"  -v "$SERVICE_NAME"
+            if [ $EX_STAT = 0 ]; then
+                SERVICE_NAME=$INP_VAR
+            fi
+            ;;
+        " SERVICE_DIR")
+            input_var -t " | SERVICE_DIR | " -w 60 -m "Podaj nazwe katalogu dla usługi:"  -v "$SERVICE_DIR"
+            if [ $EX_STAT = 0 ]; then
+                SERVICE_DIR=$INP_VAR
+            fi
+            ;;
+        " HTML_DOC")
+            input_var -t " | HTML_DOC | " -w 60 -m "Podaj nazwe katalogu www usługi (. oznacza katalog główny serwera):"  -v "$HTML_DOC"
+            if [ $EX_STAT = 0 ]; then
+                HTML_DOC=$INP_VAR
+            fi
+            ;;
+        " MYSQL_USER")
+            input_var -t " | MYSQL_USER | " -w 60 -m "Podaj nazwe uźytkownika dla usługi:"  -v "$MYSQL_USER"
+            if [ $EX_STAT = 0 ]; then
+                MYSQL_USER=$INP_VAR
+            fi
+            ;;
+        " MySQL_PASS")
+            input_var -t " | MySQL_PASS | " -w 60 -m "Podaj hasło użytkownika dla usługi:"  -v "$MySQL_PASS"
+            if [ $EX_STAT = 0 ]; then
+                MySQL_PASS=$INP_VAR
+            fi
+            ;;
+        " Koniec")
+            EX=0
+            ;;
+        esac
+    done
+}
+
 function service_list(){
     local EX=1
     while [ $EX -eq 1 ] ; do
