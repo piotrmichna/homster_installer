@@ -44,8 +44,12 @@ function service_edit(){
         local menux[11]=" Użytkownik usługi [$MYSQL_USER] "
         local menux[12]=" MySQL_PASS"
         local menux[13]=" Hasło użytkownika usługi [$MySQL_PASS] "
-        local menux[14]=" Koniec"
-        local menux[15]=" Powrót do konfiguratora usługi. "
+        local menux[14]=" GIT_HTML"
+        local menux[15]=" Repozytorium html usługi [$GIT_HTML] "
+        local menux[16]=" GIT_BASH"
+        local menux[17]=" Repozytorim bash usługi [$GIT_BASH] "
+        local menux[18]=" Koniec"
+        local menux[19]=" Powrót do konfiguratora usługi. "
         menulist_var -m "Wybierz wybierz paametr do edycji" -t " | Lista parametrów usługi systemowej | " -w 100
         case $INP_VAR in
         " USR")
@@ -88,6 +92,18 @@ function service_edit(){
             input_var -t " | MySQL_PASS | " -w 60 -m "Podaj hasło użytkownika dla usługi:"  -v "$MySQL_PASS"
             if [ $EX_STAT = 0 ]; then
                 MySQL_PASS=$INP_VAR
+            fi
+            ;;
+        " GIT_HTML")
+            input_var -t " | GIT_HTML | " -w 60 -m "Podaj hasło użytkownika dla usługi:"  -v "$GIT_HTML"
+            if [ $EX_STAT = 0 ]; then
+                GIT_HTML=$INP_VAR
+            fi
+            ;;
+        " GIT_BASH")
+            input_var -t " | GIT_BASH | " -w 60 -m "Podaj hasło użytkownika dla usługi:"  -v "$GIT_BASH"
+            if [ $EX_STAT = 0 ]; then
+                GIT_BASH=$INP_VAR
             fi
             ;;
         " Koniec")
