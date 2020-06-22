@@ -181,6 +181,9 @@ function service_list(){
             MySQL_PASS=${N_MySQL_PASS[$INP_VAR]}
             GIT_HTML=${N_GIT_HTML[$INP_VAR]}
             GIT_BASH=${N_GIT_BASH[$INP_VAR]}
+            HOME_DIR="/home/${USR}"
+            LOG_FILE="${LOG_FILENAME}_${CUR_DATE}.log"
+            SRCDO="${HOME_DIR}/${SERVICE_DIR}"
             EX=0
         fi
     done
