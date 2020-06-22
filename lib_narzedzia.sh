@@ -25,6 +25,9 @@ function narzedzia_install(){
     local menux[12]="tmux"
     local menux[13]="Multiplekser terminala."
     local menux[14]="on"
+    local menux[15]="gtkterm"
+    local menux[16]="Terminal komunikacji UART."
+    local menux[17]="off"
     checklist_var -m "Wybierz zadanie do wykonania::" -t " | Instalator oprogramowania narzędziowego | "
     local n=0
     for i in ${INP_VAR[@]} ; do
