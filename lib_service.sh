@@ -218,4 +218,3 @@ function service_main(){
         esac
     done
 }
-service_main
