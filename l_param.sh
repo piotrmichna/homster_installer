@@ -36,7 +36,6 @@ N_MySQL_PASS[0]="hi24biscus"
 N_GIT_HTML[0]="html.git"
 N_GIT_BASH[0]="bash.git"
 
-N_SERVICE_NUM=2
 N_USR[1]="pi"
 N_SERVICE_DESCRIPTION[1]="JASPP - system sterowania Garowni"
 N_SERVICE_NAME[1]="jaspp.service"

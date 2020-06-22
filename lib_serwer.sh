@@ -107,6 +107,22 @@ EOF
     fi
     sudo systemctl restart nginx.service
 }
+function phpmyadmin_conf(){
+    dpkg -s mariadb-server-10.0 &> /dev/null
+    if [ $? -eq 0 ] ; then
+        dpkg -s phpmyadmin &> /dev/null
+        if [ $? -eq 0 ] ; then
+            sudo mysql --user=root --password=$MYSQL_ROOT_PASS<<EOF
+DROP USER 'phpmyadmin'@'localhost';
+CREATE USER 'phpmyadmin'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASS';
+GRANT ALL PRIVILEGES ON *.* TO 'phpmyadmin'@'localhost' WITH GRANT OPTION;
+EOF
+
+        sudo systemctl restart nginx.service
+        fi
+    fi
+
+}
 
 function serwer_param(){
     local EX=1
@@ -183,7 +199,7 @@ function serwer_install(){
     local menux[8]="on"
     local menux[9]="phpmyadmin"
     local menux[10]=" Interfejs www do zarządzania bazami MySQL. "
-    local menux[11]="off"
+    local menux[11]="on"
     local menux[12]="konfiguracja"
     local menux[13]=" Konfiguracja serwera www. "
     local menux[14]="on"

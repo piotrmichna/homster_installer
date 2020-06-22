@@ -4,14 +4,42 @@
 #   autor: Piotr Michna
 #   email: pm@piotrmichna.pl
 
+source l_param.sh
 source lib_narzedzia.sh
 source lib_config.sh
 source lib_serwer.sh
 source lib_service.sh
-source l_param.sh
+source lib_install.sh
+
 #   sprawdzenie czy wykonano konfiguracje raspberry pi
 EX_CNF=0
 EX_CNF=$( localectl status | grep -c LANG=pl_PL.UTF-8 )
+
+function install_all(){
+    local menux[0]="vim"
+    local menux[1]="git"
+    local menux[2]="tmux"
+    local menux[3]="bc"
+    local menux[4]="gtkterm"
+    vim_config
+    git_config
+
+    local menux[5]="nginx"
+    local menux[6]="php"
+    local menux[7]="php-cli"
+    local menux[8]="php-fpm"
+    local menux[9]="php-mbstring"
+    local menux[10]="php-gettext"
+
+    local menux[10]="mariadb-server-10.0"
+    local menux[10]="mariadb-client-10.0"
+    local menux[10]="php-mysql"
+    serwer_conf
+
+    local menux[10]="phpmyadmin"
+    phpmyadmin_conf
+    service_install
+}
 
 function main(){
     MAIN_TITLE=" | HOMSTER - Instalator | "
@@ -28,7 +56,7 @@ function main(){
         else
             MAIN_MESSAGE="Piotr Michna\npm@piotrmichna.pl\n\nWybierz zadanie do wykonania:"
             menux[0]=" 1)"
-            menux[1]=" Wykonaj wszystkio bez konfiguracji. "
+            menux[1]=" Instaluj wszystkio domyślnie bez konfiguracji. "
             menux[4]=" 3)"
             menux[5]=" Konfiguracja Narzędzi."
             menux[6]=" 4)"
@@ -45,10 +73,7 @@ function main(){
         CHOICE=$( whiptail --title "$MAIN_TITLE" --menu "$MAIN_MESSAGE" 20 120 7 "${menux[@]}" 3>&2 2>&1 1>&3 )
         case $CHOICE in
         " 1)")
-            whiptail \
-            --backtitle "Backtitle" \
-            --title " | Wykonaj wszystkio bez konfiguracji | " \
-            --msgbox "Jeszcze nie zdefiniowane..." 8 78
+            install_all
             ;;
         " 2)")
             sudo raspi-config
