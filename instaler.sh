@@ -6,6 +6,7 @@
 
 source lib_narzedzia.sh
 source lib_config.sh
+source lib_serwer.sh
 
 #   sprawdzenie czy wykonano konfiguracje raspberry pi
 EX_CNF=0
@@ -69,10 +70,7 @@ function main(){
                 narzedzia_install
                 ;;
             " 6)")
-                whiptail \
-                --backtitle "Backtitle" \
-                --title " | Instalacja servera www | " \
-                --msgbox "Jeszcze nie zdefiniowane..." 8 78
+                serwer_install
                 ;;
             " 7)")
                 whiptail \
