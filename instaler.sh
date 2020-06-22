@@ -7,7 +7,7 @@
 source lib_narzedzia.sh
 source lib_config.sh
 source lib_serwer.sh
-
+source l_param.sh
 #   sprawdzenie czy wykonano konfiguracje raspberry pi
 EX_CNF=0
 EX_CNF=$( localectl status | grep -c LANG=pl_PL.UTF-8 )

@@ -9,12 +9,7 @@ source lib_install.sh
 source l_checklist.sh
 source l_menulist.sh
 source l_input.sh
-
-HTML_ROOT="/var/www/html"
-HTML_DOC="."
-MYSQL_USER="pituEl"
-MySQL_PASS="hi24biscus"
-MYSQL_ROOT_PASS="hi24biscus"
+source l_param.sh
 
 function serwer_conf(){
     dpkg -s nginx &> /dev/null

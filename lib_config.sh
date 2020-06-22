@@ -7,19 +7,7 @@
 source l_checklist.sh
 source l_menulist.sh
 source l_input.sh
-
-
-CUR_DATE=$(date +"%F") #data
-USR="piot"
-SERVICE_DESCRIPTION="HOMSTER - system sterowania"
-SERVICE_NAME="homster.service"
-SERVICE_DIR="homster_dev"
-HOME_DIR="/home/${USR}"
-LOG_FILENAME="log"
-
-LOG_FILE="${LOG_FILENAME}_${CUR_DATE}.log"
-SRCDO="${HOME_DIR}/${SERVICE_DIR}"
-
+source l_param.sh
 
 function vim_config(){
     touch ${HOME_DIR}/.vimrc
