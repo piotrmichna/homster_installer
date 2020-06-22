@@ -27,8 +27,11 @@ function serwer_install(){
     local menux[8]="on"
     local menux[9]="phpmyadmin"
     local menux[10]=" Interfejs www do zarządzania bazami MySQL. "
-    local menux[11]="on"
-    checklist_var -m "Wybierz zadanie do wykonania::" -t " | Instalator oprogramowania narzędziowego | "
+    local menux[11]="off"
+    local menux[12]="konfiguracja"
+    local menux[13]=" Konfiguracja serwera www. "
+    local menux[14]="on"
+    checklist_var -m "Wybierz oprogramowanie do zainstalowania:" -t " | Instalator oprogramowania serwera www | "
     local n=0
     for i in ${INP_VAR[@]} ; do
         local RE[$n]=$( echo "$i" | tr -d \" )
@@ -44,6 +47,11 @@ function serwer_install(){
         fi
         if [ ${RE[$n]} = "MariaDB" ] ; then
             mariadb_install
+            n=$(( n+1 ))
+            continue
+        fi
+        if [ ${RE[$n]} = "konfiguracja" ] ; then
+            serwer_conf
             n=$(( n+1 ))
             continue
         else
