@@ -7,6 +7,14 @@
 
 source lib_install.sh
 source l_checklist.sh
+source l_menulist.sh
+source l_input.sh
+
+HTML_ROOT="/var/www/html"
+HTML_DOC="."
+MYSQL_USER="pituEl"
+MySQL_PASS="hi24biscus"
+MYSQL_ROOT_PAS="hi24biscus"
 
 function php_install(){
     sudo apt-get install php php-cli php-fpm php-mbstring php-gettext -y &> /dev/null
