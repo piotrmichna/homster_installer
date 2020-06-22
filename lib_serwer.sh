@@ -105,6 +105,7 @@ CREATE USER '$MYSQL_USER'@'localhost' IDENTIFIED BY '$MySQL_PASS';
 GRANT ALL PRIVILEGES ON *.* TO '$MYSQL_USER'@'localhost' WITH GRANT OPTION;
 EOF
     fi
+    sudo systemctl restart nginx.service
 }
 
 function serwer_param(){
