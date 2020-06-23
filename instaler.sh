@@ -118,7 +118,7 @@ function main(){
         " 4)")
             clear
             if [ $LOG_FLAG -eq 0 ] ; then
-                local snum=$( echo `ls | grep -c ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log ` )
+                local snum=$( echo `ls | grep -c ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log` )
                 if [ $snum -gt 0 ] ; then
                     sudo rm ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
                 fi
@@ -128,6 +128,7 @@ function main(){
             sudo apt-get update | TERM=ansi whiptail --title "HOMSTER - Instalator" --infobox "Aktualizacja systemu..." 8 78
             sudo apt-get upgrade | TERM=ansi whiptail --title "HOMSTER - Instalator" --infobox "Uaktualnianie systemu..." 8 78
             sudo apt-get autoremove | TERM=ansi whiptail --title "HOMSTER - Instalator" --infobox "Usuwanie zbędnych pakietów..." 8 78
+            echo "LOG_FLAG=$LOG_FLAG snum=$snum"
             ;;
         " 5)")
             clear
