@@ -14,6 +14,7 @@ source l_param.sh
 function serwer_conf(){
     dpkg -s nginx &> /dev/null
     if [ $? -eq 0 ] ; then
+        echo -e "${GREEN}--->CONFIG Nginx $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
         cd /etc/nginx/sites-available/
         sudo mv default default.back
         sudo touch default
@@ -97,6 +98,7 @@ EOF
     fi
     dpkg -s mariadb-server-10.0 &> /dev/null
     if [ $? -eq 0 ] ; then
+        echo -e "${GREEN}--->CONFIG MariaDB $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
         sudo mysql --user=root <<EOF
 DROP USER 'root'@'localhost';
 CREATE USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASS';
@@ -106,12 +108,15 @@ GRANT ALL PRIVILEGES ON *.* TO '$MYSQL_USER'@'localhost' WITH GRANT OPTION;
 EOF
     fi
     sudo systemctl restart nginx.service
+    echo -e "${GREEN}---> RESTART nginx $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
 }
 function phpmyadmin_conf(){
+
     dpkg -s mariadb-server-10.0 &> /dev/null
     if [ $? -eq 0 ] ; then
         dpkg -s phpmyadmin &> /dev/null
         if [ $? -eq 0 ] ; then
+            echo -e "${GREEN}--->CONFIG phpmyadmin $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
             sudo mysql --user=root --password=$MYSQL_ROOT_PASS<<EOF
 DROP USER 'phpmyadmin'@'localhost';
 CREATE USER 'phpmyadmin'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASS';
@@ -119,6 +124,7 @@ GRANT ALL PRIVILEGES ON *.* TO 'phpmyadmin'@'localhost' WITH GRANT OPTION;
 EOF
 
         sudo systemctl restart nginx.service
+        echo -e "${GREEN}---> RESTART nginx $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
         fi
     fi
 

@@ -16,29 +16,41 @@ EX_CNF=0
 EX_CNF=$( localectl status | grep -c LANG=pl_PL.UTF-8 )
 
 function install_all(){
-    local menux[0]="vim"
-    local menux[1]="git"
-    local menux[2]="tmux"
-    local menux[3]="bc"
-    local menux[4]="gtkterm"
+    echo -e "${GREEN}--->UPDATE $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    sudo apt-get update |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    echo -e "${GREEN}--->UPGRADE $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    sudo apt-get upgrade |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    echo -e "${GREEN}--->AUTOREMOWE $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    sudo apt-get autoremove |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+
+    echo -e "${GREEN}--->NARZĘDZIA $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    install_prog "vim"
+    install_prog "git"
+    install_prog "tmux"
+    install_prog "bc"
+    install_prog "gtkterm"
+    echo -e "${GREEN}--->KONFIGURACJA NARZĘDZI $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
     vim_config
     git_config
+    echo -e "${GREEN}--->INSTALL SERVER $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    install_prog "nginx"
+    install_prog "php"
+    install_prog "php-cli"
+    install_prog "php-fpm"
+    install_prog "php-mbstring"
+    install_prog "php-gettext"
 
-    local menux[5]="nginx"
-    local menux[6]="php"
-    local menux[7]="php-cli"
-    local menux[8]="php-fpm"
-    local menux[9]="php-mbstring"
-    local menux[10]="php-gettext"
-
-    local menux[10]="mariadb-server-10.0"
-    local menux[10]="mariadb-client-10.0"
-    local menux[10]="php-mysql"
+    install_prog "mariadb-server-10.0"
+    install_prog "mariadb-client-10.0"
+    install_prog "php-mysql"
+    echo -e "${GREEN}--->CONFIG SERWER $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
     serwer_conf
 
-    local menux[10]="phpmyadmin"
+    install_prog "phpmyadmin"
     phpmyadmin_conf
+    echo -e "${GREEN}--->INSTALL SERVICE $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
     service_install
+    echo -e "${GREEN}--->END $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
 }
 
 function main(){
