@@ -215,36 +215,42 @@ function maridb_install(){
     clear
 }
 function phpmyadmin_install(){
+    clear
     dpkg -s "phpmyadmin" &> /dev/null
     if [ $? -eq 0 ] ; then
         echo "---> phpmyadmin JEST JUŻ ZAINSTALOWANY" >> ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
         TERM=ansi whiptail --title "- phpmyadmin -" --infobox "phpmyadmin był już zainstalowany" 8 70
     else
         echo "--->INSTALL" >> ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
-        TERM=ansi whiptail --title "INSTALATOR - phpmyadmin" --infobox "Oprogramowanie phpmyadmin zostało pomyślnie zainstalowane." 8 70
+        TERM=ansi whiptail --title "INSTALATOR - phpmyadmin" --infobox "Instalacja oprogramowania phpmyadmin." 8 70
         sudo apt-get install phpmyadmin |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
     fi
+    clear
 }
 
 function serwer_install(){
-    local menux[0]="Nginx"
-    local menux[1]=" Serwer www. "
-    local menux[2]="on"
-    local menux[3]="PHP"
-    local menux[4]=" Interperter skryptów PHP. "
+    local menux[0]="parametry"
+    local menux[1]=" Parametry konfiguracji serwera. "
+    local menux[2]="off"
+    local menux[3]="Nginx"
+    local menux[4]=" Serwer www. "
     local menux[5]="on"
-    local menux[6]="MariaDB"
-    local menux[7]=" Serwer baz danych MySQL. "
+    local menux[6]="PHP"
+    local menux[7]=" Interperter skryptów PHP. "
     local menux[8]="on"
-    local menux[9]="phpmyadmin"
-    local menux[10]=" Interfejs www do zarządzania bazami MySQL. "
+    local menux[9]="MariaDB"
+    local menux[10]=" Serwer baz danych MySQL. "
     local menux[11]="on"
-    local menux[12]="konfiguracja"
-    local menux[13]=" Konfiguracja serwera www. "
+    local menux[12]="phpmyadmin"
+    local menux[13]=" Interfejs www do zarządzania bazami MySQL. "
     local menux[14]="on"
-    local menux[12]="parametry"
-    local menux[13]=" Parametry konfiguracji serwera. "
-    local menux[14]="off"
+    local menux[15]="konf. serwera www"
+    local menux[16]=" Konfiguracja serwera www. "
+    local menux[17]="off"
+    local menux[18]="konf. phpmyadmin"
+    local menux[19]=" Konfiguracja phpmyadmin "
+    local menux[20]="off"
+
     checklist_var -m "Wybierz oprogramowanie do zainstalowania:" -t " | Instalator oprogramowania serwera www | "
     local n=0
     for i in ${INP_VAR[@]} ; do
@@ -269,8 +275,13 @@ function serwer_install(){
             n=$(( n+1 ))
             continue
         fi
-        if [ ${RE[$n]} = "konfiguracja" ] ; then
+        if [ ${RE[$n]} = "konf. serwera www" ] ; then
             serwer_conf
+            n=$(( n+1 ))
+            continue
+        fi
+        if [ ${RE[$n]} = "konf. phpmyadmin" ] ; then
+            phpmyadmin_conf
             n=$(( n+1 ))
             continue
         fi
