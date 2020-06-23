@@ -119,7 +119,7 @@ function main(){
             clear
             if [ $LOG_FLAG -eq 0 ] ; then
                 cd ${HOME_DIR}
-                snum=$( echo `ls | grep -c ${LOG_FILENAME}_$currentDate.log` )
+                snum=$( echo `ls | grep -c "${LOG_FILENAME}_$currentDate.log"` )
                 if [ $snum -gt 0 ] ; then
                     sudo rm ${LOG_FILENAME}_$currentDate.log
                 fi
