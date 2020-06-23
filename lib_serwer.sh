@@ -122,9 +122,15 @@ DROP USER 'phpmyadmin'@'localhost';
 CREATE USER 'phpmyadmin'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASS';
 GRANT ALL PRIVILEGES ON *.* TO 'phpmyadmin'@'localhost' WITH GRANT OPTION;
 EOF
-
-        sudo systemctl restart nginx.service
         echo -e "${GREEN}---> RESTART nginx $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+        sudo systemctl restart nginx.service
+
+        echo -e "${GREEN}---> REPAIR phpmyadmin $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+        cd ${HOME_DIR}/install/phpmyadmin_err
+        sudo cp /usr/share/phpmyadmin/libraries/sql.lib.php /usr/share/phpmyadmin/libraries/sql.lib.php.bak
+        sudo cp /usr/share/phpmyadmin/libraries/plugin_interface.lib.php /usr/share/phpmyadmin/libraries/plugin_interface.lib.php.bak
+        sudo cp sql.lib.php /usr/share/phpmyadmin/libraries/sql.lib.php
+        sudo cp plugin_interface.lib.php /usr/share/phpmyadmin/libraries/plugin_interface.lib.php
         fi
     fi
 
