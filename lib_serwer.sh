@@ -192,11 +192,38 @@ function serwer_param(){
 }
 
 function php_install(){
-    sudo apt-get install php php-cli php-fpm php-mbstring php-gettext -y &> /dev/null
+    TERM=ansi whiptail --title "- Serwer www -" --infobox "Instalacja php" 8 70
+    install_prog "php"
+    TERM=ansi whiptail --title "- Serwer www -" --infobox "Instalacja php-cli" 8 70
+    install_prog "php-cli"
+    TERM=ansi whiptail --title "- Serwer www -" --infobox "Instalacja php-fpm" 8 70
+    install_prog "php-fpm"
+    TERM=ansi whiptail --title "- Serwer www -" --infobox "Instalacja php-mbstring" 8 70
+    install_prog "php-mbstring"
+    TERM=ansi whiptail --title "- Serwer www -" --infobox "Instalacja php-gettext" 8 70
+    install_prog "php-gettext"
+    clear
 }
 
 function maridb_install(){
-    sudo apt-get install mariadb-server-10.0 mariadb-client-10.0 php-mysql -y &> /dev/null
+    TERM=ansi whiptail --title "- Serwer www -" --infobox "Instalacja mariadb-server-10.0" 8 70
+    install_prog "mariadb-server-10.0"
+    TERM=ansi whiptail --title "- Serwer www -" --infobox "Instalacja mariadb-client-10.0" 8 70
+    install_prog "mariadb-client-10.0"
+    TERM=ansi whiptail --title "- Serwer www -" --infobox "Instalacja php-mysql" 8 70
+    install_prog "php-mysql"
+    clear
+}
+function maridb_install(){
+    dpkg -s "phpmyadmin" &> /dev/null
+    if [ $? -eq 0 ] ; then
+        echo "---> phpmyadmin JEST JUŻ ZAINSTALOWANY" >> ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+        TERM=ansi whiptail --title "- phpmyadmin -" --infobox "phpmyadmin był już zainstalowany" 8 70
+    else
+        echo "--->INSTALL" >> ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+        TERM=ansi whiptail --title "INSTALATOR - phpmyadmin" --infobox "Oprogramowanie phpmyadmin zostało pomyślnie zainstalowane." 8 70
+        sudo apt-get install phpmyadmin -y |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    fi
 }
 
 function serwer_install(){
@@ -237,6 +264,11 @@ function serwer_install(){
             n=$(( n+1 ))
             continue
         fi
+        if [ ${RE[$n]} = "phpmyadmin" ] ; then
+            phpmyadmin_install
+            n=$(( n+1 ))
+            continue
+        fi
         if [ ${RE[$n]} = "konfiguracja" ] ; then
             serwer_conf
             n=$(( n+1 ))
@@ -246,13 +278,7 @@ function serwer_install(){
             serwer_param
             n=$(( n+1 ))
             continue
-        else
-            install_prog ${RE[$n]}
-            n=$(( n+1 ))
         fi
-
-        #echo "${RE[$n]}"
-
     done
     clear
 }

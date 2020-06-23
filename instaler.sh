@@ -16,42 +16,53 @@ EX_CNF=0
 EX_CNF=$( localectl status | grep -c LANG=pl_PL.UTF-8 )
 
 function install_all(){
-    echo -e "${GREEN}--->UPDATE $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+    echo -e "--->UPDATE" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    TERM=ansi whiptail --title "- UPDATE -" --infobox "Aktualizacja systemu" 8 70
     sudo apt-get update |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
-    echo -e "${GREEN}--->UPGRADE $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+    echo -e "--->UPGRADE" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    TERM=ansi whiptail --title "- UPDATE -" --infobox "Uaktualnienie systemu" 8 70
     sudo apt-get upgrade -y |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
-    echo -e "${GREEN}--->AUTOREMOWE $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+    echo -e "--->AUTOREMOWE" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    TERM=ansi whiptail --title "- UPDATE -" --infobox "Usuwanie zbednych pakietów systemu" 8 70
     sudo apt-get autoremove -y |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
 
-    echo -e "${GREEN}--->NARZĘDZIA $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+    echo -e "--->NARZĘDZIA" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    TERM=ansi whiptail --title "- NARZĘDZIA -" --infobox "Instalacja oprogramowania narzędziowego" 8 70
     install_prog "vim"
     install_prog "git"
     install_prog "tmux"
     install_prog "bc"
     install_prog "gtkterm"
     install_prog "wiringpi"
-    echo -e "${GREEN}--->KONFIGURACJA NARZĘDZI $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+    echo -e "--->KONFIGURACJA NARZĘDZI" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    TERM=ansi whiptail --title "- KONFIGURACJA -" --infobox "Konfiguracja oprogramowania Vim" 8 70
     vim_config
     git_config
-    echo -e "${GREEN}--->INSTALL SERVER $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
-    install_prog "nginx"
-    install_prog "php"
-    install_prog "php-cli"
-    install_prog "php-fpm"
-    install_prog "php-mbstring"
-    install_prog "php-gettext"
-
-    install_prog "mariadb-server-10.0"
-    install_prog "mariadb-client-10.0"
-    install_prog "php-mysql"
-    echo -e "${GREEN}--->CONFIG SERWER $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+    echo -e "--->INSTALL SERVER" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    TERM=ansi whiptail --title "- SERVER WWW -" --infobox "Instalacja oprogramowania serwera www" 8 70
+    php_install
+    maridb_install
+    echo -e "--->CONFIG SERWER" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    TERM=ansi whiptail --title "- CONFIG SERWER -" --infobox "Konfiguracja oprogramowania serwera" 8 70
     serwer_conf
 
-    install_prog "phpmyadmin"
+    dpkg -s "phpmyadmin" &> /dev/null
+    if [ $? -eq 0 ] ; then
+        echo "---> phpmyadmin JEST JUŻ ZAINSTALOWANY" >> ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+        TERM=ansi whiptail --title "- phpmyadmin -" --infobox "phpmyadmin był już zainstalowany" 8 70
+    else
+        echo "--->INSTALL" >> ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+        TERM=ansi whiptail --title "INSTALATOR - phpmyadmin" --infobox "Oprogramowanie phpmyadmin zostało pomyślnie zainstalowane." 8 70
+        sudo apt-get install phpmyadmin -y |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    fi
+    clear
     phpmyadmin_conf
-    echo -e "${GREEN}--->INSTALL SERVICE $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+
+    echo -e "--->INSTALL SERVICE" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    TERM=ansi whiptail --title "- UPDATE -" --infobox "Aktualizacja systemu" 8 70
     service_install
-    echo -e "${GREEN}--->END $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+    echo -e "--->END" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    clear
 }
 
 function main(){

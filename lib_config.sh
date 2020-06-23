@@ -36,7 +36,7 @@ function git_config(){
         editor="vim"
     fi
     touch ${HOME_DIR}/.gitconfig &> /dev/null
-    cat > ${HOME_DIR}/.gitconfig2 <<EOF
+    cat > ${HOME_DIR}/.gitconfig <<EOF
 [user]
 	email = pm@piotrmichna.pl
 	name = Piotr Michna
