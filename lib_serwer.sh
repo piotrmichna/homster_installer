@@ -125,11 +125,24 @@ function phpmyadmin_conf(){
         dpkg -s phpmyadmin &> /dev/null
         if [ $? -eq 0 ] ; then
             echo " --->CONFIG phpmyadmin " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
-            sudo mysql --user=root --password=$MYSQL_ROOT_PASS<<EOF
+
+            sudo phpenmod mbstring
+            sudo ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin
+            local user=$( echo `mysql -Dmysql -u root -phi24biscus -N -e"SELECT COUNT(1) FROM user WHERE User='phpmyadmin';"`)
+            if [ $muser -eq 0 ] ; then
+                sudo mysql --user=root --password=$MYSQL_ROOT_PASS<<EOF
+CREATE USER 'phpmyadmin'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASS';
+GRANT ALL PRIVILEGES ON *.* TO 'phpmyadmin'@'localhost' WITH GRANT OPTION;
+EOF
+
+            else
+                sudo mysql --user=root --password=$MYSQL_ROOT_PASS<<EOF
 DROP USER 'phpmyadmin'@'localhost';
 CREATE USER 'phpmyadmin'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASS';
 GRANT ALL PRIVILEGES ON *.* TO 'phpmyadmin'@'localhost' WITH GRANT OPTION;
 EOF
+
+            fi
         echo " ---> RESTART nginx " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
         sudo systemctl restart nginx.service
 
