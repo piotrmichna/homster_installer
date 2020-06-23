@@ -129,7 +129,7 @@ function phpmyadmin_conf(){
             sudo phpenmod mbstring
             sudo ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin
             local muser=$( echo `mysql -Dmysql -u root -p$MYSQL_ROOT_PASS -N -e"SELECT COUNT(1) FROM user WHERE User='phpmyadmin';"`)
-            echo "mysql -Dmysql -u root -p$MYSQL_ROOT_PASS -N -eSELECT COUNT(1) FROM user WHERE User='phpmyadmin';"
+            #echo "mysql -Dmysql -u root -p$MYSQL_ROOT_PASS -N -eSELECT COUNT(1) FROM user WHERE User='phpmyadmin';"
             if [ $muser -eq 0 ] ; then
                 sudo mysql --user=root --password=$MYSQL_ROOT_PASS<<EOF
 CREATE USER 'phpmyadmin'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASS';
@@ -153,7 +153,6 @@ EOF
         sudo cp /usr/share/phpmyadmin/libraries/plugin_interface.lib.php /usr/share/phpmyadmin/libraries/plugin_interface.lib.php.bak
         sudo cp sql.lib.php /usr/share/phpmyadmin/libraries/sql.lib.php
         sudo cp plugin_interface.lib.php /usr/share/phpmyadmin/libraries/plugin_interface.lib.php
-        exit 0
         fi
     fi
 
@@ -340,4 +339,4 @@ function serwer_install(){
     done
     clear
 }
-phpmyadmin_conf
+
