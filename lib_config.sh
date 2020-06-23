@@ -10,6 +10,14 @@ source l_input.sh
 source l_param.sh
 
 function vim_config(){
+    if [ $LOG_FLAG -eq 0 ] ; then
+        local snum=$( echo `ls | grep -c ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log ` )
+        if [ $snum -gt 0 ] ; then
+            sudo rm ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+        fi
+        touch ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+        LOG_FLAG=1
+    fi
     echo "---->CONFIG Vim $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
     touch ${HOME_DIR}/.vimrc
     cat > ${HOME_DIR}/.vimrc <<EOF
@@ -29,6 +37,14 @@ sudo cp ${HOME_DIR}/.vimrc /root
 
 
 function git_config(){
+    if [ $LOG_FLAG -eq 0 ] ; then
+        local snum=$( echo `ls | grep -c ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log ` )
+        if [ $snum -gt 0 ] ; then
+            sudo rm ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+        fi
+        touch ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+        LOG_FLAG=1
+    fi
     echo "---->CONFIG Git $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
     local editor="nano"
     dpkg -s vim &> /dev/null

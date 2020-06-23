@@ -12,6 +12,14 @@ source l_input.sh
 source l_param.sh
 
 function serwer_conf(){
+    if [ $LOG_FLAG -eq 0 ] ; then
+        local snum=$( echo `ls | grep -c ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log ` )
+        if [ $snum -gt 0 ] ; then
+            sudo rm ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+        fi
+        touch ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+        LOG_FLAG=1
+    fi
     dpkg -s nginx &> /dev/null
     if [ $? -eq 0 ] ; then
         echo "--->CONFIG Nginx " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
@@ -192,6 +200,14 @@ function serwer_param(){
 }
 
 function php_install(){
+    if [ $LOG_FLAG -eq 0 ] ; then
+        local snum=$( echo `ls | grep -c ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log ` )
+        if [ $snum -gt 0 ] ; then
+            sudo rm ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+        fi
+        touch ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+        LOG_FLAG=1
+    fi
     TERM=ansi whiptail --title "- Serwer www -" --infobox "Instalacja php" 8 70
     install_prog "php"
     TERM=ansi whiptail --title "- Serwer www -" --infobox "Instalacja php-cli" 8 70
@@ -206,6 +222,14 @@ function php_install(){
 }
 
 function maridb_install(){
+    if [ $LOG_FLAG -eq 0 ] ; then
+        local snum=$( echo `ls | grep -c ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log ` )
+        if [ $snum -gt 0 ] ; then
+            sudo rm ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+        fi
+        touch ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+        LOG_FLAG=1
+    fi
     TERM=ansi whiptail --title "- Serwer www -" --infobox "Instalacja mariadb-server-10.0" 8 70
     install_prog "mariadb-server-10.0"
     TERM=ansi whiptail --title "- Serwer www -" --infobox "Instalacja mariadb-client-10.0" 8 70
@@ -215,6 +239,14 @@ function maridb_install(){
     clear
 }
 function phpmyadmin_install(){
+    if [ $LOG_FLAG -eq 0 ] ; then
+        local snum=$( echo `ls | grep -c ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log ` )
+        if [ $snum -gt 0 ] ; then
+            sudo rm ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+        fi
+        touch ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+        LOG_FLAG=1
+    fi
     clear
     dpkg -s "phpmyadmin" &> /dev/null
     if [ $? -eq 0 ] ; then
