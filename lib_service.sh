@@ -10,7 +10,7 @@ source l_input.sh
 source l_param.sh
 
 function service_install(){
-    echo -e "--->INSTALL ${SERVICE_DESCRIPTION}" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+     echo"--->INSTALL ${SERVICE_DESCRIPTION}" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
     TERM=ansi whiptail --title "- ${SERVICE_DESCRIPTION} -" --infobox "Instalacja usługi systemowej" 8 70
     cd /var/www/
     sudo rm -R -f html
@@ -26,7 +26,7 @@ function service_install(){
         sudo chmod -R 777 /var/www/html/$HTML_DOC
         cd $HTML_DOC
     fi
-    echo -e "--->INSTALL ${SERVICE_DESCRIPTION} git html" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+     echo"--->INSTALL ${SERVICE_DESCRIPTION} git html" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
     TERM=ansi whiptail --title "- ${SERVICE_DESCRIPTION} -" --infobox "Pobieranie repozytorium html" 8 70
     git clone https://Chivito78:hi24biscus@bitbucket.org/Chivito78/${GIT_HTML} . |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
 
@@ -41,10 +41,10 @@ function service_install(){
     mkdir $SRCDO
     chmod 766 $SRCDO
     cd $SRCDO
-    echo -e "--->INSTALL ${SERVICE_DESCRIPTION} git bash" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+     echo"--->INSTALL ${SERVICE_DESCRIPTION} git bash" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
     TERM=ansi whiptail --title "- ${SERVICE_DESCRIPTION} -" --infobox "Pobieranie repozytorium bash" 8 70
     git clone https://Chivito78:hi24biscus@bitbucket.org/Chivito78/${GIT_BASH}  . |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
-    echo -e "--->INSTALL ${SERVICE_DESCRIPTION} konfiguracja" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+     echo"--->INSTALL ${SERVICE_DESCRIPTION} konfiguracja" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
     TERM=ansi whiptail --title "- ${SERVICE_DESCRIPTION} -" --infobox "Konfiguracja usługi systemowej" 8 70
     chmod 766 ${SRCDO}/.git
     chmod 766 ${SRCDO}/*.*
