@@ -61,10 +61,10 @@ function main(){
     #   definicja pozycji menu
         if [ $EX_CNF -eq 0 ] ; then
             MAIN_MESSAGE="Piotr Michna\npm@piotrmichna.pl\n\nNależy wykonać wstępną konfiguracje [sudo raspi-config] dla:\nUstawienia językowe\nStrefa czasowa"
-            menux[2]="2)"
-            menux[3]="Raspberry konfigurator. "
-            menux[14]="8)"
-            menux[15]="Koniec."
+            menux[2]=" 2)"
+            menux[3]=" Raspberry konfigurator. "
+            menux[14]=" 8)"
+            menux[15]=" Koniec."
         else
             MAIN_MESSAGE="Piotr Michna\npm@piotrmichna.pl\n\nWybierz zadanie do wykonania:"
             menux[0]=" 1)"
