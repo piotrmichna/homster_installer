@@ -74,7 +74,7 @@ function install_all(){
 }
 
 function main(){
-    MAIN_TITLE=" | HOMSTER - Instalator | "
+    MAIN_TITLE=" | HOMSTER - Instalator LOG_FLAG=$LOG_FLAG snum=$snum | "
     local EX=1
     #   petla wyswietlania menu instalatora
     while [ $EX -eq 1 ] ; do
@@ -118,7 +118,7 @@ function main(){
         " 4)")
             clear
             if [ $LOG_FLAG -eq 0 ] ; then
-                local snum=$( echo `ls | grep -c ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log` )
+                snum=$( echo `ls | grep -c ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log` )
                 if [ $snum -gt 0 ] ; then
                     sudo rm ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
                 fi
@@ -134,7 +134,6 @@ function main(){
             echo "--->AUTOREMOWE" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
             TERM=ansi whiptail --title "- UPDATE -" --infobox "Usuwanie zbednych pakietów systemu" 8 70
             sudo apt-get autoremove -y |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
-            echo "LOG_FLAG=$LOG_FLAG snum=$snum"
             ;;
         " 5)")
             clear
