@@ -120,41 +120,37 @@ EOF
 }
 function phpmyadmin_conf(){
 
-    dpkg -s mariadb-server-10.0 &> /dev/null
-    if [ $? -eq 0 ] ; then
-        dpkg -s phpmyadmin &> /dev/null
-        if [ $? -eq 0 ] ; then
-            echo " --->CONFIG phpmyadmin " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+    echo " --->CONFIG phpmyadmin " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
 
-            sudo phpenmod mbstring
-            sudo ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin
-            local muser=$( echo `mysql -Dmysql -u root -p$MYSQL_ROOT_PASS -N -e"SELECT COUNT(1) FROM user WHERE User='phpmyadmin';"`)
-            #echo "mysql -Dmysql -u root -p$MYSQL_ROOT_PASS -N -eSELECT COUNT(1) FROM user WHERE User='phpmyadmin';"
-            if [ $muser -eq 0 ] ; then
-                sudo mysql --user=root --password=$MYSQL_ROOT_PASS<<EOF
+    sudo phpenmod mbstring
+    sudo ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin
+    local muser=$( echo mysql -Dmysql -u root -p$MYSQL_ROOT_PASS -N -e"SELECT COUNT(1) FROM user WHERE User='phpmyadmin';")
+    #echo "mysql -Dmysql -u root -p$MYSQL_ROOT_PASS -N -eSELECT COUNT(1) FROM user WHERE User='phpmyadmin';"
+    if [ $muser -eq 0 ] ; then
+        sudo mysql --user=root --password=$MYSQL_ROOT_PASS<<EOF
+USE mysql;
 CREATE USER 'phpmyadmin'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASS';
 GRANT ALL PRIVILEGES ON *.* TO 'phpmyadmin'@'localhost' WITH GRANT OPTION;
 EOF
 
-            else
-                sudo mysql --user=root --password=$MYSQL_ROOT_PASS<<EOF
+    else
+        sudo mysql --user=root --password=$MYSQL_ROOT_PASS<<EOF
+USE mysql;
 DROP USER 'phpmyadmin'@'localhost';
 CREATE USER 'phpmyadmin'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASS';
 GRANT ALL PRIVILEGES ON *.* TO 'phpmyadmin'@'localhost' WITH GRANT OPTION;
 EOF
 
-            fi
-        echo " ---> RESTART nginx " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
-        sudo systemctl restart nginx.service
-
-        echo " ---> REPAIR phpmyadmin " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
-        cd ${HOME_DIR}/install/phpmyadmin_err
-        sudo cp /usr/share/phpmyadmin/libraries/sql.lib.php /usr/share/phpmyadmin/libraries/sql.lib.php.bak
-        sudo cp /usr/share/phpmyadmin/libraries/plugin_interface.lib.php /usr/share/phpmyadmin/libraries/plugin_interface.lib.php.bak
-        sudo cp sql.lib.php /usr/share/phpmyadmin/libraries/sql.lib.php
-        sudo cp plugin_interface.lib.php /usr/share/phpmyadmin/libraries/plugin_interface.lib.php
-        fi
     fi
+echo " ---> RESTART nginx " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+sudo systemctl restart nginx.service
+
+echo " ---> REPAIR phpmyadmin " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+cd ${HOME_DIR}/install/phpmyadmin_err
+sudo cp /usr/share/phpmyadmin/libraries/sql.lib.php /usr/share/phpmyadmin/libraries/sql.lib.php.bak
+sudo cp /usr/share/phpmyadmin/libraries/plugin_interface.lib.php /usr/share/phpmyadmin/libraries/plugin_interface.lib.php.bak
+sudo cp sql.lib.php /usr/share/phpmyadmin/libraries/sql.lib.php
+sudo cp plugin_interface.lib.php /usr/share/phpmyadmin/libraries/plugin_interface.lib.php
 
 }
 
