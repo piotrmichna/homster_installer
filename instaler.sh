@@ -134,6 +134,7 @@ function main(){
             echo "--->AUTOREMOWE" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
             TERM=ansi whiptail --title "- UPDATE -" --infobox "Usuwanie zbednych pakietów systemu" 8 70
             sudo apt-get autoremove -y |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+            echo "LOG_FLAG=$LOG_FLAG snum=$snum"
             ;;
         " 5)")
             clear
