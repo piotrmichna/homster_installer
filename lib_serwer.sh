@@ -214,7 +214,7 @@ function maridb_install(){
     install_prog "php-mysql"
     clear
 }
-function maridb_install(){
+function phpmyadmin_install(){
     dpkg -s "phpmyadmin" &> /dev/null
     if [ $? -eq 0 ] ; then
         echo "---> phpmyadmin JEST JUŻ ZAINSTALOWANY" >> ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
@@ -222,7 +222,7 @@ function maridb_install(){
     else
         echo "--->INSTALL" >> ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
         TERM=ansi whiptail --title "INSTALATOR - phpmyadmin" --infobox "Oprogramowanie phpmyadmin zostało pomyślnie zainstalowane." 8 70
-        sudo apt-get install phpmyadmin -y |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+        sudo apt-get install phpmyadmin |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
     fi
 }
 
