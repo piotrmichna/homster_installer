@@ -24,7 +24,10 @@ function narzedzia_install(){
     local menux[11]="on"
     local menux[12]="gtkterm"
     local menux[13]="Terminal komunikacji UART."
-    local menux[14]="off"
+    local menux[14]="on"
+    local menux[15]="wiringpi"
+    local menux[16]="Biblioteka obsługi GPIO."
+    local menux[17]="on"
     checklist_var -m "Wybierz zadanie do wykonania::" -t " | Instalator oprogramowania narzędziowego | "
     local n=0
     for i in ${INP_VAR[@]} ; do

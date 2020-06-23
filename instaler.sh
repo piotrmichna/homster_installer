@@ -29,6 +29,7 @@ function install_all(){
     install_prog "tmux"
     install_prog "bc"
     install_prog "gtkterm"
+    install_prog "wiringpi"
     echo -e "${GREEN}--->KONFIGURACJA NARZĘDZI $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
     vim_config
     git_config
