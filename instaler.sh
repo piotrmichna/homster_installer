@@ -22,6 +22,7 @@ function install_all(){
             sudo rm ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
         fi
         touch ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+        LOG_FLAG=1
     fi
     echo -e "--->UPDATE" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
     TERM=ansi whiptail --title "- UPDATE -" --infobox "Aktualizacja systemu" 8 70
