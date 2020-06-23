@@ -54,6 +54,12 @@ function install_all(){
     TERM=ansi whiptail --title "- CONFIG SERWER -" --infobox "Konfiguracja oprogramowania serwera" 8 70
     serwer_conf
 
+    echo "--->INSTALL SERVICE" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    TERM=ansi whiptail --title "- UPDATE -" --infobox "Aktualizacja systemu" 8 70
+    service_install
+    echo "--->END" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    clear
+
     dpkg -s "phpmyadmin" &> /dev/null
     if [ $? -eq 0 ] ; then
         echo "---> phpmyadmin JEST JUŻ ZAINSTALOWANY" >> ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
@@ -61,16 +67,12 @@ function install_all(){
     else
         echo "--->INSTALL" >> ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
         TERM=ansi whiptail --title "INSTALATOR - phpmyadmin" --infobox "Instalacja oprogramowania phpmyadmin." 8 70
-        sudo apt-get install phpmyadmin -y |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+        sudo apt-get install phpmyadmin |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
     fi
     clear
     phpmyadmin_conf
 
-    echo "--->INSTALL SERVICE" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
-    TERM=ansi whiptail --title "- UPDATE -" --infobox "Aktualizacja systemu" 8 70
-    service_install
-    echo "--->END" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
-    clear
+
 }
 
 function main(){
