@@ -118,11 +118,12 @@ function main(){
         " 4)")
             clear
             if [ $LOG_FLAG -eq 0 ] ; then
-                snum=$( echo `ls | grep -c ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log` )
+                cd ${HOME_DIR}
+                snum=$( echo `ls | grep -c ${LOG_FILENAME}_$currentDate.log` )
                 if [ $snum -gt 0 ] ; then
-                    sudo rm ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+                    sudo rm ${LOG_FILENAME}_$currentDate.log
                 fi
-                touch ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+                touch ${LOG_FILENAME}_$currentDate.log
                 LOG_FLAG=1
             fi
             echo "--->UPDATE" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
