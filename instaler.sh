@@ -16,23 +16,23 @@ EX_CNF=0
 EX_CNF=$( localectl status | grep -c LANG=pl_PL.UTF-8 )
 
 function install_all(){
-    echo -e "${GREEN}--->UPDATE $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    echo -e "${GREEN}--->UPDATE $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
     sudo apt-get update |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
-    echo -e "${GREEN}--->UPGRADE $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
-    sudo apt-get upgrade |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
-    echo -e "${GREEN}--->AUTOREMOWE $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
-    sudo apt-get autoremove |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    echo -e "${GREEN}--->UPGRADE $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+    sudo apt-get upgrade -y |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    echo -e "${GREEN}--->AUTOREMOWE $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+    sudo apt-get autoremove -y |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
 
-    echo -e "${GREEN}--->NARZĘDZIA $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    echo -e "${GREEN}--->NARZĘDZIA $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
     install_prog "vim"
     install_prog "git"
     install_prog "tmux"
     install_prog "bc"
     install_prog "gtkterm"
-    echo -e "${GREEN}--->KONFIGURACJA NARZĘDZI $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    echo -e "${GREEN}--->KONFIGURACJA NARZĘDZI $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
     vim_config
     git_config
-    echo -e "${GREEN}--->INSTALL SERVER $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    echo -e "${GREEN}--->INSTALL SERVER $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
     install_prog "nginx"
     install_prog "php"
     install_prog "php-cli"
@@ -43,14 +43,14 @@ function install_all(){
     install_prog "mariadb-server-10.0"
     install_prog "mariadb-client-10.0"
     install_prog "php-mysql"
-    echo -e "${GREEN}--->CONFIG SERWER $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    echo -e "${GREEN}--->CONFIG SERWER $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
     serwer_conf
 
     install_prog "phpmyadmin"
     phpmyadmin_conf
-    echo -e "${GREEN}--->INSTALL SERVICE $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    echo -e "${GREEN}--->INSTALL SERVICE $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
     service_install
-    echo -e "${GREEN}--->END $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    echo -e "${GREEN}--->END $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
 }
 
 function main(){

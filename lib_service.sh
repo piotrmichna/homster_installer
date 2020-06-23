@@ -10,7 +10,7 @@ source l_input.sh
 source l_param.sh
 
 function service_install(){
-    echo -e "${GREEN}--->INSTALL ${SERVICE_DESCRIPTION} $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    echo -e "${GREEN}--->INSTALL ${SERVICE_DESCRIPTION} $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
     cd /var/www/
     sudo rm -R -f html
     sudo mkdir html

@@ -10,6 +10,7 @@ source l_input.sh
 source l_param.sh
 
 function vim_config(){
+    echo -e "${GREEN}--->CONFIG Vim $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
     touch ${HOME_DIR}/.vimrc
     cat > ${HOME_DIR}/.vimrc <<EOF
 syntax on
@@ -28,6 +29,7 @@ sudo cp ${HOME_DIR}/.vimrc /root
 
 
 function git_config(){
+    echo -e "${GREEN}--->CONFIG Git $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
     local editor="nano"
     dpkg -s vim &> /dev/null
     if [ $? -eq 0 ] ; then
