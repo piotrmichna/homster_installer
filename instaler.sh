@@ -60,8 +60,8 @@ function install_all(){
         TERM=ansi whiptail --title "- phpmyadmin -" --infobox "phpmyadmin był już zainstalowany" 8 70
     else
         echo "--->INSTALL" >> ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
-        TERM=ansi whiptail --title "INSTALATOR - phpmyadmin" --infobox "Oprogramowanie phpmyadmin zostało pomyślnie zainstalowane." 8 70
-        sudo apt-get install phpmyadmin -y |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+        TERM=ansi whiptail --title "INSTALATOR - phpmyadmin" --infobox "Instalacja oprogramowania phpmyadmin." 8 70
+        sudo apt-get install phpmyadmin -y |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
     fi
     clear
     phpmyadmin_conf
