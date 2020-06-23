@@ -10,7 +10,7 @@ source l_input.sh
 source l_param.sh
 
 function vim_config(){
-    echo -e "${GREEN}--->CONFIG Vim $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+    echo "---->CONFIG Vim $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
     touch ${HOME_DIR}/.vimrc
     cat > ${HOME_DIR}/.vimrc <<EOF
 syntax on
@@ -29,7 +29,7 @@ sudo cp ${HOME_DIR}/.vimrc /root
 
 
 function git_config(){
-    echo -e "${GREEN}--->CONFIG Git $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+    echo "---->CONFIG Git $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
     local editor="nano"
     dpkg -s vim &> /dev/null
     if [ $? -eq 0 ] ; then
@@ -98,7 +98,7 @@ function parametry_conf(){
             fi
             ;;
         " LOG_FILENAME")
-           echo "$LOG_FILENAME"
+          echo "$LOG_FILENAME"
             input_var -t " | LOG_FILENAME | " -w 60 -m "Podaj nazwe pliku:"  -v "$LOG_FILENAME"
             if [ $EX_STAT = 0 ]; then
                 LOG_FILENAME=$INP_VAR
@@ -138,7 +138,7 @@ function narzedzia_cnf(){
     checklist_var -m "Wybierz zadanie do wykonania::" -t " | Instalator oprogramowania narzędziowego | "
     local n=0
     for i in ${INP_VAR[@]} ; do
-        local RE[$n]=$( echo "$i" | tr -d \" )
+        local RE[$n]=$(echo "$i" | tr -d \" )
         #install_prog ${RE[$n]}
         if [ ${RE[$n]} = "PARAMETRY" ] ; then
             parametry_conf

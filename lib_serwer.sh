@@ -14,7 +14,7 @@ source l_param.sh
 function serwer_conf(){
     dpkg -s nginx &> /dev/null
     if [ $? -eq 0 ] ; then
-         echo"--->CONFIG Nginx " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+        echo "--->CONFIG Nginx " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
         cd /etc/nginx/sites-available/
         sudo mv default default.back
         sudo touch default
@@ -98,7 +98,7 @@ EOF
     fi
     dpkg -s mariadb-server-10.0 &> /dev/null
     if [ $? -eq 0 ] ; then
-         echo" --->CONFIG MariaDB " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+        echo " --->CONFIG MariaDB " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
         sudo mysql --user=root <<EOF
 DROP USER 'root'@'localhost';
 CREATE USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASS';
@@ -108,7 +108,7 @@ GRANT ALL PRIVILEGES ON *.* TO '$MYSQL_USER'@'localhost' WITH GRANT OPTION;
 EOF
     fi
     sudo systemctl restart nginx.service
-     echo" ---> RESTART nginx " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+    echo " ---> RESTART nginx " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
 }
 function phpmyadmin_conf(){
 
@@ -116,16 +116,16 @@ function phpmyadmin_conf(){
     if [ $? -eq 0 ] ; then
         dpkg -s phpmyadmin &> /dev/null
         if [ $? -eq 0 ] ; then
-             echo" --->CONFIG phpmyadmin " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+            echo " --->CONFIG phpmyadmin " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
             sudo mysql --user=root --password=$MYSQL_ROOT_PASS<<EOF
 DROP USER 'phpmyadmin'@'localhost';
 CREATE USER 'phpmyadmin'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASS';
 GRANT ALL PRIVILEGES ON *.* TO 'phpmyadmin'@'localhost' WITH GRANT OPTION;
 EOF
-         echo" ---> RESTART nginx " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+        echo " ---> RESTART nginx " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
         sudo systemctl restart nginx.service
 
-         echo" ---> REPAIR phpmyadmin " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+        echo " ---> REPAIR phpmyadmin " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
         cd ${HOME_DIR}/install/phpmyadmin_err
         sudo cp /usr/share/phpmyadmin/libraries/sql.lib.php /usr/share/phpmyadmin/libraries/sql.lib.php.bak
         sudo cp /usr/share/phpmyadmin/libraries/plugin_interface.lib.php /usr/share/phpmyadmin/libraries/plugin_interface.lib.php.bak
@@ -218,10 +218,10 @@ function phpmyadmin_install(){
     clear
     dpkg -s "phpmyadmin" &> /dev/null
     if [ $? -eq 0 ] ; then
-        echo "---> phpmyadmin JEST JUŻ ZAINSTALOWANY" >> ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+       echo "---> phpmyadmin JEST JUŻ ZAINSTALOWANY" >> ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
         TERM=ansi whiptail --title "- phpmyadmin -" --infobox "phpmyadmin był już zainstalowany" 8 70
     else
-        echo "--->INSTALL" >> ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+       echo "--->INSTALL" >> ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
         TERM=ansi whiptail --title "INSTALATOR - phpmyadmin" --infobox "Instalacja oprogramowania phpmyadmin." 8 70
         sudo apt-get install phpmyadmin |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
     fi
@@ -254,7 +254,7 @@ function serwer_install(){
     checklist_var -m "Wybierz oprogramowanie do zainstalowania:" -t " | Instalator oprogramowania serwera www | "
     local n=0
     for i in ${INP_VAR[@]} ; do
-        local RE[$n]=$( echo "$i" | tr -d \" )
+        local RE[$n]=$(echo "$i" | tr -d \" )
         if [ ${RE[$n]} = "Nginx" ] ; then
             install_prog "nginx"
             n=$(( n+1 ))

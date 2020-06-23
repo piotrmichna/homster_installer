@@ -14,7 +14,7 @@ source lib_install.sh
 #   sprawdzenie czy wykonano konfiguracje raspberry pi
 EX_CNF=0
 EX_CNF=$( localectl status | grep -c LANG=pl_PL.UTF-8 )
-LOG_FLAG=0
+
 function install_all(){
     if [ $LOG_FLAG -eq 0 ] ; then
         local snum=$( echo `ls | grep -c ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log ` )
@@ -24,17 +24,17 @@ function install_all(){
         touch ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
         LOG_FLAG=1
     fi
-     echo"--->UPDATE" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    echo "--->UPDATE" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
     TERM=ansi whiptail --title "- UPDATE -" --infobox "Aktualizacja systemu" 8 70
     sudo apt-get update |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
-     echo"--->UPGRADE" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    echo "--->UPGRADE" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
     TERM=ansi whiptail --title "- UPDATE -" --infobox "Uaktualnienie systemu" 8 70
     sudo apt-get upgrade -y |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
-     echo"--->AUTOREMOWE" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    echo "--->AUTOREMOWE" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
     TERM=ansi whiptail --title "- UPDATE -" --infobox "Usuwanie zbednych pakietów systemu" 8 70
     sudo apt-get autoremove -y |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
 
-     echo"--->NARZĘDZIA" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    echo "--->NARZĘDZIA" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
     TERM=ansi whiptail --title "- NARZĘDZIA -" --infobox "Instalacja oprogramowania narzędziowego" 8 70
     install_prog "vim"
     install_prog "git"
@@ -42,15 +42,15 @@ function install_all(){
     install_prog "bc"
     install_prog "gtkterm"
     install_prog "wiringpi"
-     echo"--->KONFIGURACJA NARZĘDZI" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    echo "--->KONFIGURACJA NARZĘDZI" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
     TERM=ansi whiptail --title "- KONFIGURACJA -" --infobox "Konfiguracja oprogramowania Vim" 8 70
     vim_config
     git_config
-     echo"--->INSTALL SERVER" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    echo "--->INSTALL SERVER" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
     TERM=ansi whiptail --title "- SERVER WWW -" --infobox "Instalacja oprogramowania serwera www" 8 70
     php_install
     maridb_install
-     echo"--->CONFIG SERWER" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    echo "--->CONFIG SERWER" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
     TERM=ansi whiptail --title "- CONFIG SERWER -" --infobox "Konfiguracja oprogramowania serwera" 8 70
     serwer_conf
 
@@ -66,10 +66,10 @@ function install_all(){
     clear
     phpmyadmin_conf
 
-     echo"--->INSTALL SERVICE" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    echo "--->INSTALL SERVICE" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
     TERM=ansi whiptail --title "- UPDATE -" --infobox "Aktualizacja systemu" 8 70
     service_install
-     echo"--->END" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    echo "--->END" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
     clear
 }
 

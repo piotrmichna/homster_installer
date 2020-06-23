@@ -10,6 +10,8 @@ GREEN="\e[0;32m"
 BLUE="\e[0;34m"
 NC="\e[0m"
 
+LOG_FLAG=0
+
 currentDate=$(date +"%F") #data
 USR="piot"
 SERVICE_DESCRIPTION="HOMSTER - system sterowania"
