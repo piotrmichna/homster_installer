@@ -340,4 +340,4 @@ function serwer_install(){
     done
     clear
 }
-#serwer_install
+phpmyadmin_conf

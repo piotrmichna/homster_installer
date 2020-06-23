@@ -196,6 +196,7 @@ function service_list(){
             HTML_DOC=${N_HTML_DOC[$INP_VAR]}
             MYSQL_USER=${N_MYSQL_USER[$INP_VAR]}
             MySQL_PASS=${N_MySQL_PASS[$INP_VAR]}
+            MYSQL_ROOT_PASS=${N_MySQL_PASS[$INP_VAR]}
             GIT_HTML=${N_GIT_HTML[$INP_VAR]}
             GIT_BASH=${N_GIT_BASH[$INP_VAR]}
             HOME_DIR="/home/${USR}"
