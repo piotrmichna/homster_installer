@@ -133,9 +133,14 @@ function phpmyadmin_conf(){
     echo " --->CONFIG phpmyadmin " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
 
     sudo phpenmod mbstring
-    sudo ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin
+    local npa=$(echo `ls /var/www/html | grep -c phpmyadmin` )
+    if [ $npa -eq 0 ] ; then
+        sudo ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin
+        echo " --->CONFIG utworzenie dowiązania ln phpmyadnim" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+    else
+        echo " --->CONFIG Dowiązania ln phpmyadnim już istniało" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+    fi
     local muser=$( echo `sudo mysql -Dmysql -u root -p$MYSQL_ROOT_PASS -N -e"SELECT COUNT(1) FROM user WHERE User='phpmyadmin';"`)
-    #echo "mysql -Dmysql -u root -p$MYSQL_ROOT_PASS -N -eSELECT COUNT(1) FROM user WHERE User='phpmyadmin';"
     if [ $muser -eq 0 ] ; then
         sudo mysql --user=root --password=$MYSQL_ROOT_PASS<<EOF
 USE mysql;
