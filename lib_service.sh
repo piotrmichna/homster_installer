@@ -39,7 +39,7 @@ function service_install(){
     TERM=ansi whiptail --title "- ${SERVICE_DESCRIPTION} -" --infobox "Pobieranie repozytorium html" 8 70
     git clone https://Chivito78:hi24biscus@bitbucket.org/Chivito78/${GIT_HTML} . |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
 
-    dpkg -s phpmyadmin &> /dev/null
+    sudo dpkg -s phpmyadmin &> /dev/null
     if [ $? -eq 0 ] ; then
         sudo phpenmod mbstring
         sudo phpenmod gettext

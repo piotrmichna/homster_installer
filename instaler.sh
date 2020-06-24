@@ -62,7 +62,7 @@ function install_all(){
     echo "--->END" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
     clear
 
-    dpkg -s "phpmyadmin" &> /dev/null
+    sudo dpkg -s "phpmyadmin" &> /dev/null
     if [ $? -eq 0 ] ; then
         echo "---> phpmyadmin JEST JUŻ ZAINSTALOWANY" >> ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
         TERM=ansi whiptail --title "- phpmyadmin -" --infobox "phpmyadmin był już zainstalowany" 8 70

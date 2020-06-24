@@ -21,7 +21,7 @@ function serwer_conf(){
         fi
         touch ${LOG_FILENAME}_$currentDate.log
     fi
-    dpkg -s nginx &> /dev/null
+    sudo dpkg -s nginx &> /dev/null
     if [ $? -eq 0 ] ; then
         echo "--->CONFIG Nginx " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
         cd /etc/nginx/sites-available/
@@ -104,8 +104,9 @@ server {
 	}
 }
 EOF
+
     fi
-    dpkg -s mariadb-server-10.0 &> /dev/null
+    sudo dpkg -s mariadb-server-10.0 &> /dev/null
     if [ $? -eq 0 ] ; then
         echo " --->CONFIG MariaDB " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
         sudo mysql --user=root <<EOF
@@ -147,7 +148,8 @@ echo " ---> RESTART nginx " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.l
 sudo systemctl restart nginx.service
 
 echo " ---> REPAIR phpmyadmin " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
-cd ${HOME_DIR}/install/phpmyadmin_err
+cd ${HOME_DIR}
+cd /install/phpmyadmin_err
 sudo cp /usr/share/phpmyadmin/libraries/sql.lib.php /usr/share/phpmyadmin/libraries/sql.lib.php.bak
 sudo cp /usr/share/phpmyadmin/libraries/plugin_interface.lib.php /usr/share/phpmyadmin/libraries/plugin_interface.lib.php.bak
 sudo cp sql.lib.php /usr/share/phpmyadmin/libraries/sql.lib.php
@@ -263,7 +265,7 @@ function phpmyadmin_install(){
         touch ${LOG_FILENAME}_$currentDate.log
     fi
     clear
-    dpkg -s "phpmyadmin" &> /dev/null
+    sudo dpkg -s "phpmyadmin" &> /dev/null
     if [ $? -eq 0 ] ; then
        echo "---> phpmyadmin JEST JUŻ ZAINSTALOWANY" >> ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
         TERM=ansi whiptail --title "- phpmyadmin -" --infobox "phpmyadmin był już zainstalowany" 8 70

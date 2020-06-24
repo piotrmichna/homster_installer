@@ -9,7 +9,7 @@ source l_param.sh
 
 function install_prog(){
     local mess=""
-    dpkg -s $1 &> /dev/null
+    sudo dpkg -s $1 &> /dev/null
     if [ $? -eq 0 ] ; then
         echo "---> $1 JEST JUŻ ZAINSTALOWANY" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
         TERM=ansi whiptail --title "- $1 -" --infobox "$1 był już zainstalowany" 8 70
