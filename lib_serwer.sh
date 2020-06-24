@@ -161,14 +161,10 @@ echo " ---> RESTART nginx " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.l
 sudo systemctl restart nginx.service
 
 echo " ---> REPAIR phpmyadmin " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
-cd ${HOME_DIR}
-cd /install/phpmyadmin_err
-echo pwd |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
 sudo cp /usr/share/phpmyadmin/libraries/sql.lib.php /usr/share/phpmyadmin/libraries/sql.lib.php.bak
 sudo cp /usr/share/phpmyadmin/libraries/plugin_interface.lib.php /usr/share/phpmyadmin/libraries/plugin_interface.lib.php.bak
-sudo cp sql.lib.php /usr/share/phpmyadmin/libraries/sql.lib.php
-sudo cp plugin_interface.lib.php /usr/share/phpmyadmin/libraries/plugin_interface.lib.php
-
+sudo cp ${HOME_DIR}/install/phpmyadmin_err/sql.lib.php /usr/share/phpmyadmin/libraries/sql.lib.php
+sudo cp ${HOME_DIR}/install/phpmyadmin_err/plugin_interface.lib.php /usr/share/phpmyadmin/libraries/plugin_interface.lib.php
 }
 
 function serwer_param(){
