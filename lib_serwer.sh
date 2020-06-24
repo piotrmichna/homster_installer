@@ -121,7 +121,15 @@ EOF
     echo " ---> RESTART nginx " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
 }
 function phpmyadmin_conf(){
-
+    if [ $LOG_FLAG -eq 0 ] ; then
+        cd ${HOME_DIR}
+        snum=$( echo `sudo ls | grep -c "${LOG_FILENAME}_$currentDate.log"` )
+        if [ $snum -gt 0 ] ; then
+            sudo rm ${LOG_FILENAME}_$currentDate.log
+            LOG_FLAG=1
+        fi
+        touch ${LOG_FILENAME}_$currentDate.log
+    fi
     echo " --->CONFIG phpmyadmin " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
 
     sudo phpenmod mbstring
