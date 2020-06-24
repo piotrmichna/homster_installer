@@ -1,4 +1,4 @@
-# /bin/bash
+#!/bin/bash
 #   lib_narzedzia.sh
 
 #   instalator i konfigurator systemu HOMSTER

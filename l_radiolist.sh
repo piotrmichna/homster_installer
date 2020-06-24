@@ -1,4 +1,4 @@
-# /bin/bash
+#!/bin/bash
 #   l_radiolist.sh
 #
 #   funkcja wyswietlajaca okno dialogowem radiolist

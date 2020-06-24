@@ -1,4 +1,4 @@
-# /bin/bash
+#! /bin/bash
 #   lib_serwer.sh
 
 #   instalator i konfigurator systemu HOMSTER

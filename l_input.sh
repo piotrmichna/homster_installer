@@ -1,4 +1,4 @@
-# /bin/bash
+#!/bin/bash
 #   l_input.sh
 #
 #   instalator i konfigurator systemu HOMSTER

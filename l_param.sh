@@ -1,4 +1,4 @@
-# /bin/bash
+#!/bin/bash
 #   l_param.sh
 
 #   lista parametrow instalatora

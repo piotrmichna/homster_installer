@@ -1,4 +1,4 @@
-# /bin/bash
+#!/bin/bash
 
 #   instalator i konfigurator systemu HOMSTER
 #   autor: Piotr Michna
