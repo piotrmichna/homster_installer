@@ -132,7 +132,7 @@ function narzedzia_cnf(){
     local menux[1]="Zmień parametry konfiguracyjne."
     local menux[2]="off"
     local n=3
-    dpkg -s vim &> /dev/null
+    sudo dpkg -s vim &> /dev/null
     if [ $? -eq 0 ] ; then
         local menux[$n]="vim"
         n=$(( n+1 ))
@@ -141,7 +141,7 @@ function narzedzia_cnf(){
         local menux[$n]="on"
         n=$(( n+1 ))
     fi
-    dpkg -s git &> /dev/null
+    sudo dpkg -s git &> /dev/null
     if [ $? -eq 0 ] ; then
         local menux[$n]="git"
         n=$(( n+1 ))
