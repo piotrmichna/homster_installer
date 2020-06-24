@@ -23,7 +23,7 @@ function serwer_conf(){
     fi
     sudo dpkg -s nginx &> /dev/null
     if [ $? -eq 0 ] ; then
-        echo "--->CONFIG Nginx " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+        echo "--->CONFIG Nginx " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
         cd /etc/nginx/sites-available/
         sudo mv default default.back
         sudo touch default
@@ -108,7 +108,7 @@ EOF
     fi
     sudo dpkg -s mariadb-server-10.0 &> /dev/null
     if [ $? -eq 0 ] ; then
-        echo " --->CONFIG MariaDB " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+        echo " --->CONFIG MariaDB " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
         sudo mysql --user=root <<EOF
 DROP USER 'root'@'localhost';
 CREATE USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASS';
@@ -118,7 +118,7 @@ GRANT ALL PRIVILEGES ON *.* TO '$MYSQL_USER'@'localhost' WITH GRANT OPTION;
 EOF
     fi
     sudo systemctl restart nginx.service
-    echo " ---> RESTART nginx " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+    echo " ---> RESTART nginx " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
 }
 function phpmyadmin_conf(){
     if [ $LOG_FLAG -eq 0 ] ; then
@@ -130,15 +130,15 @@ function phpmyadmin_conf(){
         fi
         touch ${LOG_FILENAME}_$currentDate.log
     fi
-    echo " --->CONFIG phpmyadmin " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+    echo " --->CONFIG phpmyadmin " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
 
     sudo phpenmod mbstring
     local npa=$(echo `ls /var/www/html | grep -c phpmyadmin` )
     if [ $npa -eq 0 ] ; then
         sudo ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin
-        echo " --->CONFIG utworzenie dowiązania ln phpmyadnim" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+        echo " --->CONFIG utworzenie dowiązania ln phpmyadnim" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
     else
-        echo " --->CONFIG Dowiązania ln phpmyadnim już istniało" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+        echo " --->CONFIG Dowiązania ln phpmyadnim już istniało" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
     fi
     local muser=$( echo `sudo mysql -Dmysql -u root -p$MYSQL_ROOT_PASS -N -e"SELECT COUNT(1) FROM user WHERE User='phpmyadmin';"`)
     if [ $muser -eq 0 ] ; then
@@ -157,10 +157,10 @@ GRANT ALL PRIVILEGES ON *.* TO 'phpmyadmin'@'localhost' WITH GRANT OPTION;
 EOF
 
     fi
-echo " ---> RESTART nginx " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+echo " ---> RESTART nginx " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
 sudo systemctl restart nginx.service
 
-echo " ---> REPAIR phpmyadmin " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+echo " ---> REPAIR phpmyadmin " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
 sudo cp /usr/share/phpmyadmin/libraries/sql.lib.php /usr/share/phpmyadmin/libraries/sql.lib.php.bak
 sudo cp /usr/share/phpmyadmin/libraries/plugin_interface.lib.php /usr/share/phpmyadmin/libraries/plugin_interface.lib.php.bak
 sudo cp ${HOME_DIR}/install/phpmyadmin_err/sql.lib.php /usr/share/phpmyadmin/libraries/sql.lib.php
