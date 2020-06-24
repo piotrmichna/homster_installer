@@ -230,6 +230,8 @@ function php_install(){
     install_prog "php-mbstring"
     TERM=ansi whiptail --title "- Serwer www -" --infobox "Instalacja php-gettext" 8 70
     install_prog "php-gettext"
+    TERM=ansi whiptail --title "- Serwer www -" --infobox "Instalacja php-mysql" 8 70
+    install_prog "php-mysql"
     clear
 }
 
@@ -248,7 +250,6 @@ function maridb_install(){
     TERM=ansi whiptail --title "- Serwer www -" --infobox "Instalacja mariadb-client-10.0" 8 70
     install_prog "mariadb-client-10.0"
     TERM=ansi whiptail --title "- Serwer www -" --infobox "Instalacja php-mysql" 8 70
-    install_prog "php-mysql"
     clear
 }
 function phpmyadmin_install(){
