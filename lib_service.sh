@@ -11,12 +11,13 @@ source l_param.sh
 
 function service_install(){
     if [ $LOG_FLAG -eq 0 ] ; then
-        local snum=$( echo `ls | grep -c ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log ` )
+        cd ${HOME_DIR}
+        snum=$( echo `sudo ls | grep -c "${LOG_FILENAME}_$currentDate.log"` )
         if [ $snum -gt 0 ] ; then
-            sudo rm ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+            sudo rm ${LOG_FILENAME}_$currentDate.log
+            LOG_FLAG=1
         fi
-        touch ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
-        LOG_FLAG=1
+        touch ${LOG_FILENAME}_$currentDate.log
     fi
     echo "--->INSTALL ${SERVICE_DESCRIPTION}" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
     TERM=ansi whiptail --title "- ${SERVICE_DESCRIPTION} -" --infobox "Instalacja usługi systemowej" 8 70
