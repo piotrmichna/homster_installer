@@ -18,7 +18,7 @@ function vim_config(){
         touch ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
         LOG_FLAG=1
     fi
-    echo "---->CONFIG Vim $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    echo "---->CONFIG Vim " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
     touch ${HOME_DIR}/.vimrc
     cat > ${HOME_DIR}/.vimrc <<EOF
 syntax on
@@ -45,7 +45,7 @@ function git_config(){
         touch ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
         LOG_FLAG=1
     fi
-    echo "---->CONFIG Git $NC" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
+    echo "---->CONFIG Git " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
     local editor="nano"
     dpkg -s vim &> /dev/null
     if [ $? -eq 0 ] ; then
