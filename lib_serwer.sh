@@ -280,8 +280,8 @@ function phpmyadmin_install(){
        echo "---> phpmyadmin JEST JUŻ ZAINSTALOWANY" >> ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
         TERM=ansi whiptail --title "- phpmyadmin -" --infobox "phpmyadmin był już zainstalowany" 8 70
     else
-       echo "--->INSTALL" >> ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
-        TERM=ansi whiptail --title "INSTALATOR - phpmyadmin" --infobox "Instalacja oprogramowania phpmyadmin." 8 70
+        clear
+        echo "--->INSTALL" >> ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
         sudo apt-get install phpmyadmin |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
     fi
     clear

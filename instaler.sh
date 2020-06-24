@@ -64,11 +64,11 @@ function install_all(){
 
     sudo dpkg -s "phpmyadmin" &> /dev/null
     if [ $? -eq 0 ] ; then
-        echo "---> phpmyadmin JEST JUŻ ZAINSTALOWANY" >> ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
         TERM=ansi whiptail --title "- phpmyadmin -" --infobox "phpmyadmin był już zainstalowany" 8 70
+        echo "---> phpmyadmin JEST JUŻ ZAINSTALOWANY" >> ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
     else
+        clear
         echo "--->INSTALL" >> ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
-        TERM=ansi whiptail --title "INSTALATOR - phpmyadmin" --infobox "Instalacja oprogramowania phpmyadmin." 8 70
         sudo apt-get install phpmyadmin |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
     fi
     clear
