@@ -17,12 +17,13 @@ EX_CNF=$( localectl status | grep -c LANG=pl_PL.UTF-8 )
 
 function install_all(){
     if [ $LOG_FLAG -eq 0 ] ; then
-        local snum=$( echo `ls | grep -c ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log ` )
+        cd ${HOME_DIR}
+        snum=$( echo `sudo ls | grep -c "${LOG_FILENAME}_$currentDate.log"` )
         if [ $snum -gt 0 ] ; then
-            sudo rm ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
+            sudo rm ${LOG_FILENAME}_$currentDate.log
+            LOG_FLAG=1
         fi
-        touch ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
-        LOG_FLAG=1
+        touch ${LOG_FILENAME}_$currentDate.log
     fi
     echo "--->UPDATE" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
     TERM=ansi whiptail --title "- UPDATE -" --infobox "Aktualizacja systemu" 8 70
@@ -122,12 +123,12 @@ function main(){
             clear
             if [ $LOG_FLAG -eq 0 ] ; then
                 cd ${HOME_DIR}
-                snum=$( echo `ls | grep -c "${LOG_FILENAME}_$currentDate.log"` )
+                snum=$( echo `sudo ls | grep -c "${LOG_FILENAME}_$currentDate.log"` )
                 if [ $snum -gt 0 ] ; then
                     sudo rm ${LOG_FILENAME}_$currentDate.log
+                    LOG_FLAG=1
                 fi
                 touch ${LOG_FILENAME}_$currentDate.log
-                LOG_FLAG=1
             fi
             echo "--->UPDATE" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
             TERM=ansi whiptail --title "- UPDATE -" --infobox "Aktualizacja systemu" 8 70
