@@ -126,7 +126,7 @@ function phpmyadmin_conf(){
 
     sudo phpenmod mbstring
     sudo ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin
-    local muser=$( echo mysql -Dmysql -u root -p$MYSQL_ROOT_PASS -N -e"SELECT COUNT(1) FROM user WHERE User='phpmyadmin';")
+    local muser=$( echo `sudo mysql -Dmysql -u root -p$MYSQL_ROOT_PASS -N -e"SELECT COUNT(1) FROM user WHERE User='phpmyadmin';"`)
     #echo "mysql -Dmysql -u root -p$MYSQL_ROOT_PASS -N -eSELECT COUNT(1) FROM user WHERE User='phpmyadmin';"
     if [ $muser -eq 0 ] ; then
         sudo mysql --user=root --password=$MYSQL_ROOT_PASS<<EOF
@@ -150,6 +150,7 @@ sudo systemctl restart nginx.service
 echo " ---> REPAIR phpmyadmin " |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
 cd ${HOME_DIR}
 cd /install/phpmyadmin_err
+echo pwd |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log
 sudo cp /usr/share/phpmyadmin/libraries/sql.lib.php /usr/share/phpmyadmin/libraries/sql.lib.php.bak
 sudo cp /usr/share/phpmyadmin/libraries/plugin_interface.lib.php /usr/share/phpmyadmin/libraries/plugin_interface.lib.php.bak
 sudo cp sql.lib.php /usr/share/phpmyadmin/libraries/sql.lib.php
