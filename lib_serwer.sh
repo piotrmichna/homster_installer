@@ -247,7 +247,7 @@ function php_install(){
     clear
 }
 
-function maridb_install(){
+function mariadb_install(){
     if [ $LOG_FLAG -eq 0 ] ; then
         cd ${HOME_DIR}
         snum=$( echo `sudo ls | grep -c "${LOG_FILENAME}_$currentDate.log"` )

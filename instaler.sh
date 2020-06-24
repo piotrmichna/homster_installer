@@ -51,7 +51,7 @@ function install_all(){
     TERM=ansi whiptail --title "- SERVER WWW -" --infobox "Instalacja oprogramowania serwera www" 8 70
     install_prog "nginx"
     php_install
-    maridb_install
+    mariadb_install
     echo "--->CONFIG SERWER" |& tee -a ${HOME_DIR}/${LOG_FILENAME}_$currentDate.log &> /dev/null
     TERM=ansi whiptail --title "- CONFIG SERWER -" --infobox "Konfiguracja oprogramowania serwera" 8 70
     serwer_conf
