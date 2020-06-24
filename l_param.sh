@@ -13,10 +13,10 @@ NC="\e[0m"
 LOG_FLAG=0
 
 currentDate=$(date +"%F") #data
-USR="piot"
-SERVICE_DESCRIPTION="HOMSTER - system sterowania"
-SERVICE_NAME="homster.service"
-SERVICE_DIR="homster_dev"
+USR="pi"
+SERVICE_DESCRIPTION="JASPP - system sterowania Garowni"
+SERVICE_NAME="jaspp.service"
+SERVICE_DIR="jaspp_dev"
 HOME_DIR="/home/${USR}"
 LOG_FILENAME="log"
 
@@ -28,8 +28,8 @@ HTML_DOC="."
 MYSQL_USER="pituEl"
 MySQL_PASS="hi24biscus"
 MYSQL_ROOT_PASS="hi24biscus"
-GIT_HTML="html.git"
-GIT_BASH="bash.git"
+GIT_HTML="html_gar.git"
+GIT_BASH="bash_gar.git"
 
 N_SERVICE_NUM=2
 N_USR[0]="piot"
