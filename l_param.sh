@@ -32,7 +32,7 @@ GIT_HTML="html_gar.git"
 GIT_BASH="bash_gar.git"
 
 N_SERVICE_NUM=2
-N_USR[0]="piot"
+N_USR[0]="pi"
 N_SERVICE_DESCRIPTION[0]="HOMSTER - system sterowania"
 N_SERVICE_NAME[0]="homster.service"
 N_SERVICE_DIR[0]="homster_dev"
