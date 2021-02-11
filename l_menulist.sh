@@ -17,21 +17,7 @@
 #       -t  "Tytuł okna"
 #       -m  "tekst z informacja"
 #--
-#   wynik wykonania
-#       case $INP_VAR in
-#       "1)")
-#           echo "Tytuł usługi"
-#           ;;
-#       "2)")
-#           echo "Nazwa usługi"
-#           ;;
-#       "3)")
-#           echo "Nazwa użytkownika"
-#           ;;
-#       "4)")
-#           EX=0
-#           ;;
-#       esac
+
 
 INP_VAR=0
 EX_STAT=0
@@ -92,26 +78,4 @@ function menulist_var(){
     INP_VAR=$(whiptail --menu "$message" --title "$tyt"$sct $height $width $nline "${menux[@]}" 3>&1 1>&2 2>&3)
     EX_STAT=$?
 }
-#menux[0]="1)"
-#menux[1]="Tytuł usługi."
-#menux[2]="2)"
-#menux[3]="Nazwa usługi."
-#menux[4]="3)"
-#menux[5]="Nazwa użytkownika."
-#menux[6]="4)"
-#menux[7]="Koniec."
-#menulist_var -ln 3 -m "Wybierz paramet do zmiany:" -t " | Konfigurator usługi | "
-#       case $INP_VAR in
-#       "1)")
-#           echo "Tytuł usługi"
-#           ;;
-#       "2)")
-#           echo "Nazwa usługi"
-#           ;;
-#       "3)")
-#           echo "Nazwa użytkownika"
-#           ;;
-#       "4)")
-#           EX=0
-#           ;;
-#       esac
+

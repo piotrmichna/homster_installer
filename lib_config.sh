@@ -127,6 +127,7 @@ function parametry_conf(){
     done
     clear
 }
+
 function narzedzia_cnf(){
     local menux[0]="PARAMETRY"
     local menux[1]="Zmień parametry konfiguracyjne."

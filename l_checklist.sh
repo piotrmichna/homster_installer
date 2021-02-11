@@ -18,20 +18,7 @@
 #       -t  "Tytuł okna"
 #       -m  "tekst z informacja"
 #--
-#   wynik wykonania
-#       localn=0
-#       for i in ${INP_VAR[@]} ; do
-#           RE[$n]=$( echo "$i" | tr -d \" )
-#           se=$(echo "${RE[$n]}")
-#           for (( x=0 ; x<${#menux[@]} ; x++ )) ; do
-#               if [ "$se" = "${menux[$x]}" ] ; then
-#                   y=$(( x+1 ))
-#                   echo "$se ${menux[$y]}"
-#                   break
-#               fi
-#           done
-#           n=$(( n+1 ))
-#       done
+
 
 INP_VAR=0
 EX_STAT=0
@@ -93,30 +80,4 @@ function checklist_var(){
     INP_VAR=$(whiptail --checklist "$message" --title "$tyt"$sct $height $width $nline "${menux[@]}" 3>&1 1>&2 2>&3)
     EX_STAT=$?
 }
-#menux[0]="tyt"
-#menux[1]="Tytuł usługi."
-#menux[2]="on"
-#menux[3]="2"
-#menux[4]="Nazwa usługi."
-#menux[5]="off"
-#menux[6]="3)"
-#menux[7]="[Nazwa użytkownika]"
-#menux[8]="off"
-#menux[9]="4)"
-#menux[10]="Koniec."
-#menux[11]="off"
 
-#checklist_var -m "Wybierz paramet do zmiany:" -t " | Konfigurator usługi | "
-#n=0
-#for i in ${INP_VAR[@]} ; do
-#    RE[$n]=$( echo "$i" | tr -d \" )
-#    se=$(echo "${RE[$n]}")
-#    for (( x=0 ; x<${#menux[@]} ; x++ )) ; do
-#        if [ "$se" = "${menux[$x]}" ] ; then
-#            y=$(( x+1 ))
-#            echo "$se ${menux[$y]}"
-#            break
-#        fi
-#    done
-#    n=$(( n+1 ))
-#done
